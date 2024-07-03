@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 const ComicList = () => {
   return (
     <>
-      <p>comic</p>
-      <p>comic</p>
-      <p>comic</p>
+      <Link to={`/comics/1`}>Velhon taloudenhoitaja</Link>
+      <p>comic2</p>
+      <p>comic3</p>
     </>
   );
 };
