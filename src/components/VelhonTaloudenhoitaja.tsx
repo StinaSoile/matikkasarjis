@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { VelhonTaloudenhoitajaPages } from "../data";
+// import { Button } from "@mui/material";
+import { ArrowForwardIos, ArrowBackIos } from "@mui/icons-material";
+import { Stack } from "@mui/material";
 
 const VelhonTaloudenhoitaja = () => {
   const [page, setPage] = useState(1);
@@ -24,13 +27,21 @@ const VelhonTaloudenhoitaja = () => {
   };
 
   return (
-    <>
+    <div>
       <h1>Velhon taloudenhoitaja</h1>
       {renderComicPage()}
-      <p>sivu {page}</p>
-      <button onClick={() => handleClick(-1)}>Edellinen</button>
-      <button onClick={() => handleClick(1)}>Seuraava</button>
-    </>
+      <Stack
+        justifyContent="space-around"
+        alignItems="center"
+        direction="row"
+        spacing={2}
+      >
+        <ArrowBackIos onClick={() => handleClick(-1)} />
+        <p>sivu {page}</p>
+
+        <ArrowForwardIos onClick={() => handleClick(1)} />
+      </Stack>
+    </div>
   );
 };
 
