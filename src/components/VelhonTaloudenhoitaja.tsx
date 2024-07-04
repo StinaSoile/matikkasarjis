@@ -1,24 +1,39 @@
 import { useState } from "react";
 import { VelhonTaloudenhoitajaPages } from "../data";
-// import { Button } from "@mui/material";
 import { ArrowForwardIos, ArrowBackIos } from "@mui/icons-material";
-import { Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
+import { Link } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
 
 const VelhonTaloudenhoitaja = () => {
   const [page, setPage] = useState(1);
+  const allPages = VelhonTaloudenhoitajaPages.length;
+  function PaginationOutlined() {
+    return (
+      <Stack spacing={2}>
+        <Pagination count={10} variant="outlined" color="primary" />
+        <Pagination count={10} variant="outlined" color="secondary" />
+        <Pagination count={10} variant="outlined" disabled />
+      </Stack>
+    );
+  }
 
   const handleClick = (value: number) => {
     const newPageNumber = page + value;
-    if (
-      newPageNumber > 0 &&
-      newPageNumber <= VelhonTaloudenhoitajaPages.length
-    ) {
+    if (newPageNumber > 0 && newPageNumber <= allPages) {
       setPage(newPageNumber);
     }
   };
 
+  const handleChange = (
+    event: React.ChangeEvent<unknown>,
+    selected: number
+  ) => {
+    setPage(selected);
+  };
+
   const renderComicPage = () => {
-    if (0 < page && page <= VelhonTaloudenhoitajaPages.length) {
+    if (0 < page && page <= allPages) {
       const comicPage = VelhonTaloudenhoitajaPages[page - 1];
       const address = `../../VelhonTaloudenhoitaja/${comicPage}.png`;
       return <img src={address} alt="Sarjakuvasivu" className="comicPage" />;
@@ -27,10 +42,15 @@ const VelhonTaloudenhoitaja = () => {
   };
 
   return (
-    <div>
+    <div className="comicBackground">
+      <Link to="/">
+        <Button variant="contained">Home</Button>
+      </Link>
       <h1>Velhon taloudenhoitaja</h1>
       {renderComicPage()}
-      <Stack
+      <Pagination count={allPages} page={page} onChange={handleChange} />
+
+      {/* <Stack
         justifyContent="space-around"
         alignItems="center"
         direction="row"
@@ -40,7 +60,7 @@ const VelhonTaloudenhoitaja = () => {
         <p>sivu {page}</p>
 
         <ArrowForwardIos onClick={() => handleClick(1)} />
-      </Stack>
+      </Stack> */}
     </div>
   );
 };

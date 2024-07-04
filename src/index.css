@@ -1,9 +1,29 @@
+body {
+  margin: 0;
+  background: #151515;
+}
+
+/* :root {
+  background: chocolate;
+} */
 .comicPage {
   width: 60%;
   height: auto;
 }
 
 .normalPicture {
-  width: 40%;
+  width: 100%;
   height: auto;
+}
+
+.frontPage {
+  background: rgba(201, 175, 137, 0.919);
+  width: 50%;
+  padding: 5%;
+}
+
+.comicBackground {
+  background: moccasin;
+  padding: 5%;
+  width: 50%;
 }

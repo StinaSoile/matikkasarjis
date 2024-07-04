@@ -1,48 +1,49 @@
 // import { useState } from "react";
-import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
-import CreateAccount from "./components/CreateAccount";
-import Login from "./components/Login";
-import About from "./components/About";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import "./App.css";
 import ComicList from "./components/ComicList";
 import FrontPage from "./components/FrontPage";
 import VelhonTaloudenhoitaja from "./components/VelhonTaloudenhoitaja";
-import { Container } from "@mui/material";
+import { Stack } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
+import { blueGrey, grey } from "@mui/material/colors";
+
+const theme = createTheme({
+  palette: {
+    primary: grey,
+    secondary: blueGrey,
+  },
+  typography: {},
+});
 
 function App() {
   return (
-    <Container>
+    <ThemeProvider theme={theme}>
       <Router>
-        <div>
-          <Link to="/">Home</Link>
-
-          <Link to="/about">About author</Link>
-          <Link to="/createaccount">Create Account</Link>
-          <Link to="/login">Sign in</Link>
-        </div>
-
         <Routes>
           <Route
             path="/"
             element={
-              <>
+              <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="stretch"
+                spacing={4}
+              >
                 <FrontPage />
-
                 <ComicList />
-              </>
+              </Stack>
             }
           />
-
-          <Route path="/createaccount" element={<CreateAccount />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/about" element={<About />} />
           <Route path="/comics/1" element={<VelhonTaloudenhoitaja />} />
         </Routes>
+
         <div>
           <i>Stina Palomäki 2024</i>
         </div>
       </Router>
-    </Container>
+    </ThemeProvider>
   );
 }
 
