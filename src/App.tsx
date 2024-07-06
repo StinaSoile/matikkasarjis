@@ -1,13 +1,13 @@
 // import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import "./App.css";
 import ComicList from "./components/ComicList";
 import FrontPage from "./components/FrontPage";
 import VelhonTaloudenhoitaja from "./components/VelhonTaloudenhoitaja";
 import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
+import SiivetonLepakko from "./components/SiivetonLepakko";
 
 const theme = createTheme({
   palette: {
@@ -25,18 +25,14 @@ function App() {
           <Route
             path="/"
             element={
-              <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="stretch"
-                spacing={4}
-              >
+              <Stack justifyContent="center" alignItems="stretch">
                 <FrontPage />
                 <ComicList />
               </Stack>
             }
           />
           <Route path="/comics/1" element={<VelhonTaloudenhoitaja />} />
+          <Route path="/comics/2" element={<SiivetonLepakko />} />
         </Routes>
 
         <div>

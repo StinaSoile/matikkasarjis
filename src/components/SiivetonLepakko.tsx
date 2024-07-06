@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { VelhonTaloudenhoitajaPages } from "../data";
+import { SiivetonLepakkoPages } from "../data";
 import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { renderComicPage } from "../comicPageHelpers";
 
-const VelhonTaloudenhoitaja = () => {
+const SiivetonLepakko = () => {
   const [page, setPage] = useState(1);
-  const allPages = VelhonTaloudenhoitajaPages.length;
-  const directory = `../../src/assets/VelhonTaloudenhoitaja/`;
+  const allPages = SiivetonLepakkoPages.length;
+  const directory = `../../src/assets/SiivetonLepakko/`;
   // const handleClick = (value: number) => {
   //   const newPageNumber = page + value;
   //   if (newPageNumber > 0 && newPageNumber <= allPages) {
@@ -32,8 +32,8 @@ const VelhonTaloudenhoitaja = () => {
         </Link>
       </div>
       <Stack alignItems="center" spacing={3}>
-        <h1 className="top-and-bottom">Velhon taloudenhoitaja</h1>
-        {renderComicPage(VelhonTaloudenhoitajaPages, page, directory)}
+        <h1 className="top-and-bottom">Siivettömän lepakon matka</h1>
+        {renderComicPage(SiivetonLepakkoPages, page, directory)}
         <Pagination
           className="top-and-bottom"
           count={allPages}
@@ -60,4 +60,4 @@ const VelhonTaloudenhoitaja = () => {
   );
 };
 
-export default VelhonTaloudenhoitaja;
+export default SiivetonLepakko;

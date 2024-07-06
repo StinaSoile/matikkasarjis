@@ -1,8 +1,10 @@
-import { Stack, Button, Typography } from "@mui/material";
+import { Stack, Button } from "@mui/material";
 import About from "./About";
 import CreateAccount from "./CreateAccount";
 import Login from "./Login";
 import { useState } from "react";
+import MenuComponent from "./MenuComponent";
+// import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 const FrontPage = () => {
   const [openAbout, setOpenAbout] = useState(false);
@@ -11,6 +13,7 @@ const FrontPage = () => {
 
   return (
     <div className="frontPage">
+      <MenuComponent />
       <Stack
         direction="row"
         spacing={2}
@@ -44,12 +47,11 @@ const FrontPage = () => {
       />
       <Login handleClose={() => setOpenLogin(false)} open={openLogin} />
       <img
-        src="../../etusivunKuva.png"
+        src="../../Frontpagekokeilu.png"
         alt="Kuva lepakosta jolla on viitta"
         className="normalPicture"
       />
-      <Typography variant="h3">MATIKKA-</Typography>
-      <Typography variant="h3">SARJIKSET</Typography>
+      {/* <Typography variant="h3">SARJIKSET</Typography> */}
     </div>
   );
 };

@@ -1,14 +1,10 @@
-body {
+* {
   margin: 0;
-  background: #151515;
+  padding: 0;
 }
 
-/* :root {
-  background: chocolate;
-} */
-.comicPage {
-  width: 60%;
-  height: auto;
+body {
+  background: #151515;
 }
 
 .normalPicture {
@@ -16,14 +12,49 @@ body {
   height: auto;
 }
 
-.frontPage {
+/* .frontPage {
   background: rgba(201, 175, 137, 0.919);
-  width: 50%;
-  padding: 5%;
+} */
+
+.comiclist-page {
+  padding-top: 2vh;
+}
+.comicPage {
+  width: 80%;
+  height: auto;
 }
 
 .comicBackground {
   background: moccasin;
-  padding: 5%;
-  width: 50%;
+  /* width: fit-content; */
+}
+
+.relative {
+  position: relative;
+}
+
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.list-element {
+  max-width: 50%;
+  background: rgb(255, 250, 241);
+  padding: 4%;
+  text-align: center;
+}
+
+/* .image-list {
+  background: rgba(201, 175, 137, 0.919);
+  text-align: center;
+  margin: 5;
+} */
+.dropdown-menu {
+  position: absolute;
+  top: 5vh;
+  right: 0;
+  text-align: right;
+  background-color: aliceblue;
 }
