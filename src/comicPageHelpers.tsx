@@ -13,3 +13,14 @@ export const renderComicPage = (
   }
   return <></>;
 };
+
+export const renderComicPageModal = (
+  address: string,
+  page: number,
+  allPages: number
+) => {
+  if (0 < page && page <= allPages) {
+    return <img src={address} alt="Sarjakuvasivu" className="comicPage" />;
+  }
+  return <></>;
+};

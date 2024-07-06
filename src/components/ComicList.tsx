@@ -57,7 +57,17 @@ const ComicList = () => {
           <p>Siivettömän lepakon matka</p>
           <p>4. luokka</p>
         </div>
-        <div className="list-element">comic3</div>
+        <div className="list-element">
+          <Link to={`/comics/3`}>
+            <img
+              src={VelhonTaloudenhoitajaEtusivu}
+              alt="Velhon taloudenhoitaja -sarjakuva"
+              className="comicPage"
+            />
+          </Link>
+          <p>Velhon taloudenhoitaja, pikkukuvilla!!!</p>
+          <p>Yläkoulun x:s luokka</p>
+        </div>
       </Stack>
     </div>
   );

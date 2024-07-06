@@ -33,8 +33,8 @@ body {
   position: relative;
 }
 
-.top-right {
-  position: absolute;
+.fixed-top-right {
+  position: fixed;
   top: 0;
   right: 0;
 }
@@ -44,17 +44,19 @@ body {
   background: rgb(255, 250, 241);
   padding: 4%;
   text-align: center;
+  max-width: 200px;
 }
 
-/* .image-list {
-  background: rgba(201, 175, 137, 0.919);
-  text-align: center;
-  margin: 5;
-} */
 .dropdown-menu {
   position: absolute;
   top: 5vh;
   right: 0;
   text-align: right;
   background-color: aliceblue;
+}
+
+.comicpage-dialog {
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }

@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { VelhonTaloudenhoitajaPages } from "../data";
+import { VelhonTaloudenhoitajaPages } from "../comicData";
 import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { renderComicPage } from "../comicPageHelpers";
 
-const VelhonTaloudenhoitaja = () => {
+const VelhonTaloudenhoitajaOnePage = () => {
   const [page, setPage] = useState(1);
   const allPages = VelhonTaloudenhoitajaPages.length;
   const directory = `../../src/assets/VelhonTaloudenhoitaja/`;
@@ -28,7 +28,7 @@ const VelhonTaloudenhoitaja = () => {
     <div className="comicBackground">
       <div className="relative">
         <Link to="/">
-          <HighlightOffIcon color="primary" className="top-right" />
+          <HighlightOffIcon color="primary" className="fixed-top-right" />
         </Link>
       </div>
       <Stack alignItems="center" spacing={3}>
@@ -60,4 +60,4 @@ const VelhonTaloudenhoitaja = () => {
   );
 };
 
-export default VelhonTaloudenhoitaja;
+export default VelhonTaloudenhoitajaOnePage;

@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import ComicList from "./components/ComicList";
 import FrontPage from "./components/FrontPage";
-import VelhonTaloudenhoitaja from "./components/VelhonTaloudenhoitaja";
+import VelhonTaloudenhoitajaOnePage from "./components/VelhonTaloudenhoitajaOnePage";
 import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
 import SiivetonLepakko from "./components/SiivetonLepakko";
+import ComicPages from "./components/ComicPages";
+import { VelhonTaloudenhoitajaPagesWithQuestions } from "./comicData";
 
 const theme = createTheme({
   palette: {
@@ -31,8 +33,17 @@ function App() {
               </Stack>
             }
           />
-          <Route path="/comics/1" element={<VelhonTaloudenhoitaja />} />
+          <Route path="/comics/1" element={<VelhonTaloudenhoitajaOnePage />} />
           <Route path="/comics/2" element={<SiivetonLepakko />} />
+          <Route
+            path="/comics/3"
+            element={
+              <ComicPages
+                list={VelhonTaloudenhoitajaPagesWithQuestions}
+                address="../../src/assets/VelhonTaloudenhoitaja/"
+              />
+            }
+          />
         </Routes>
 
         <div>

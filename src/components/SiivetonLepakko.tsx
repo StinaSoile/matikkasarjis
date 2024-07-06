@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SiivetonLepakkoPages } from "../data";
+import { SiivetonLepakkoPages } from "../comicData";
 import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
@@ -28,7 +28,7 @@ const SiivetonLepakko = () => {
     <div className="comicBackground">
       <div className="relative">
         <Link to="/">
-          <HighlightOffIcon color="primary" className="top-right" />
+          <HighlightOffIcon color="primary" className="fixed-top-right" />
         </Link>
       </div>
       <Stack alignItems="center" spacing={3}>
