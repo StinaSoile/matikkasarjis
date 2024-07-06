@@ -1,9 +1,10 @@
-import { Stack, Button } from "@mui/material";
+// import { Stack, Button } from "@mui/material";
 import About from "./About";
 import CreateAccount from "./CreateAccount";
 import Login from "./Login";
 import { useState } from "react";
 import MenuComponent from "./MenuComponent";
+
 // import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 const FrontPage = () => {
@@ -13,8 +14,12 @@ const FrontPage = () => {
 
   return (
     <div className="frontPage">
-      <MenuComponent />
-      <Stack
+      <MenuComponent
+        setOpenAbout={setOpenAbout}
+        // setOpenCreateAccount={setOpenCreateAccount}
+        // setOpenLogin={setOpenLogin}
+      />
+      {/* <Stack
         direction="row"
         spacing={2}
         justifyContent="space-around"
@@ -39,7 +44,7 @@ const FrontPage = () => {
         >
           About author
         </Button>
-      </Stack>
+      </Stack> */}
       <About handleClose={() => setOpenAbout(false)} open={openAbout} />
       <CreateAccount
         handleClose={() => setOpenCreateAccount(false)}
@@ -48,7 +53,7 @@ const FrontPage = () => {
       <Login handleClose={() => setOpenLogin(false)} open={openLogin} />
       <img
         src="../../Frontpagekokeilu.png"
-        alt="Kuva lepakosta jolla on viitta"
+        alt="Kuva random lohikäärmeestä"
         className="normalPicture"
       />
       {/* <Typography variant="h3">SARJIKSET</Typography> */}

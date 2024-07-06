@@ -9,10 +9,10 @@ import InputBase from "@mui/material/InputBase";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+// import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import Face4Icon from "@mui/icons-material/Face4";
+// import LoginIcon from "@mui/icons-material/Login";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -54,48 +54,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function MenuComponent() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+export default function MenuComponent({
+  setOpenAbout,
+}: // setOpenCreateAccount,
+// setOpenLogin,
+{
+  setOpenAbout: React.Dispatch<React.SetStateAction<boolean>>;
+  // setOpenCreateAccount: React.Dispatch<React.SetStateAction<boolean>>;
+  // setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -114,29 +93,29 @@ export default function MenuComponent() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem onClick={() => setOpenLogin(true)}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <MailIcon />
+          <LoginIcon />
         </IconButton>
         <p>Sign in</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={() => setOpenCreateAccount(true)}>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <NotificationsIcon />
+          <PersonAddIcon />
         </IconButton>
         <p>Create account</p>
-      </MenuItem>
-      <MenuItem>
+      </MenuItem> */}
+      <MenuItem onClick={() => setOpenAbout(true)}>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <AccountCircle />
+          <Face4Icon />
         </IconButton>
         <p>About author</p>
       </MenuItem>
@@ -145,7 +124,7 @@ export default function MenuComponent() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
+      <AppBar color="primary" position="fixed">
         <Toolbar>
           {/* <Typography
             variant="h6"
@@ -166,33 +145,33 @@ export default function MenuComponent() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <MenuItem>
+            {/* <MenuItem onClick={() => setOpenLogin(true)}>
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
                 color="inherit"
               >
-                <MailIcon />
+                <LoginIcon />
               </IconButton>
               <p>Sign in</p>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={() => setOpenCreateAccount(true)}>
               <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
                 color="inherit"
               >
-                <NotificationsIcon />
+                <PersonAddIcon />
               </IconButton>
               <p>Create account</p>
-            </MenuItem>
-            <MenuItem>
+            </MenuItem> */}
+            <MenuItem onClick={() => setOpenAbout(true)}>
               <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
                 color="inherit"
               >
-                <AccountCircle />
+                <Face4Icon />
               </IconButton>
               <p>About author</p>
             </MenuItem>
@@ -212,7 +191,6 @@ export default function MenuComponent() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
     </Box>
   );
 }

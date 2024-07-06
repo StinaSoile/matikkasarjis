@@ -22,7 +22,7 @@ const Login = ({
       open={open}
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        About author
+        Sign in
       </DialogTitle>
       <IconButton
         aria-label="close"
