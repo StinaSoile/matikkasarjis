@@ -45,20 +45,20 @@ export const VelhonTaloudenhoitajaPages: string[] = [
   "s44.png",
 ];
 
-export const SiivetonLepakkoPages: string[] = [
-  "etusivu.png",
-  "s1.png",
-  "s2.png",
-  "s3.png",
-  "s4.png",
-  "s5.png",
-  "s6.png",
-  "s7.png",
-  "s8.png",
-  "s9.png",
-  "s10.png",
-  "s11.png",
-  "s12.png",
+export const SiivetonLepakkoPages: string[][] = [
+  ["etusivu.png", "question", "answer"],
+  ["s1.png", "question", "answer"],
+  ["s2.png", "question", "answer"],
+  ["s3.png", "question", "answer"],
+  ["s4.png", "question", "answer"],
+  ["s5.png", "question", "answer"],
+  ["s6.png", "question", "answer"],
+  ["s7.png", "question", "answer"],
+  ["s8.png", "question", "answer"],
+  ["s9.png", "question", "answer"],
+  ["s10.png", "question", "answer"],
+  ["s11.png", "question", "answer"],
+  ["s12.png", "question", "answer"],
 ];
 
 export const VelhonTaloudenhoitajaPagesWithQuestions: string[][] = [

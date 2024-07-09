@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import VelhonTaloudenhoitajaEtusivu from "../../src/assets/VelhonTaloudenhoitaja/s1.png";
 import SiivetonLepakkoEtusivu from "../../src/assets/SiivetonLepakko/etusivu.png";
+import "./ComicPage.css";
 
 import { Stack } from "@mui/material";
 
@@ -36,18 +37,7 @@ const ComicList = () => {
         spacing={2}
       >
         <div className="list-element">
-          <Link to={`/comics/1`}>
-            <img
-              src={VelhonTaloudenhoitajaEtusivu}
-              alt="Velhon taloudenhoitaja -sarjakuva"
-              className="comicPage"
-            />
-          </Link>
-          <p>Velhon taloudenhoitaja</p>
-          <p>Yläkoulun x:s luokka</p>
-        </div>
-        <div className="list-element">
-          <Link to={`/comics/2`}>
+          <Link to={`/comics/siivetonlepakko`}>
             <img
               src={SiivetonLepakkoEtusivu}
               alt="Siivettömän lepakon matka -sarjakuva"
@@ -58,14 +48,14 @@ const ComicList = () => {
           <p>4. luokka</p>
         </div>
         <div className="list-element">
-          <Link to={`/comics/3`}>
+          <Link to={`/comics/velhontaloudenhoitaja`}>
             <img
               src={VelhonTaloudenhoitajaEtusivu}
               alt="Velhon taloudenhoitaja -sarjakuva"
               className="comicPage"
             />
           </Link>
-          <p>Velhon taloudenhoitaja, pikkukuvilla!!!</p>
+          <p>Velhon taloudenhoitaja</p>
           <p>Yläkoulun x:s luokka</p>
         </div>
       </Stack>

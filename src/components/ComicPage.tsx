@@ -1,25 +1,52 @@
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
-// import CloseIcon from "@mui/icons-material/Close";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import CloseIcon from "@mui/icons-material/Close";
+// import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import "./ComicPage.css";
 import { Dialog, Stack } from "@mui/material";
+import { useCallback } from "react";
+// import { useKeyboardShortcut } from "../keyboardListener";
+import MobileSwiper from "./MobileSwiper";
 
 const ComicPage = ({
   list,
   page,
-  setPage,
   handleClose,
   open,
   address,
+  handleDecrement,
+  handleIncrement,
 }: {
   list: string[][];
   page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
   handleClose: () => void;
   open: boolean;
   address: string;
+  handleDecrement: () => void;
+  handleIncrement: () => void;
 }) => {
-  //
+  const allPages = list.length;
+
+  const handleSwipe = useCallback(
+    ({ deltaX, deltaY }: { deltaX: number; deltaY: number }) => {
+      if (Math.abs(deltaX) > 4 && Math.abs(deltaY) > 4) {
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          if (deltaX > 0) {
+            handleDecrement();
+          } else {
+            handleIncrement();
+          }
+        } else {
+          if (deltaY > 0) {
+            handleDecrement();
+          } else {
+            handleIncrement();
+          }
+        }
+      }
+    },
+    [handleDecrement, handleIncrement]
+  );
+
   const renderComicPage = (
     pageArray: string[][],
     page: number,
@@ -27,57 +54,45 @@ const ComicPage = ({
   ) => {
     const allPages = pageArray.length;
 
-    if (0 < page && page <= allPages) {
-      const comicPage = pageArray[page - 1][0];
+    if (page >= 0 && page < allPages) {
+      const comicPage = pageArray[page][0];
       const address = `${directory}${comicPage}`;
 
       return (
-        <img src={address} alt="Sarjakuvasivu" className="comicpage-dialog" />
+        <MobileSwiper onSwipe={handleSwipe}>
+          <img src={address} alt="Sarjakuvasivu" className="comicpage-dialog" />
+        </MobileSwiper>
       );
     }
     return <></>;
   };
-  // const addr = `${address}${list[page - 1][0]}`;
-  const allPages = list.length;
 
-  const handleClick = (value: number) => {
-    const newPageNumber = page + value;
-    if (newPageNumber > 0 && newPageNumber <= allPages) {
-      setPage(newPageNumber);
-    }
-  };
-  // const handleChange = (
-  //   _event: React.ChangeEvent<unknown>,
-  //   selected: number
-  // ) => {
-  //   setPage(selected);
-  // };
-
-  if (0 < page && page <= allPages) {
+  if (0 <= page && page <= allPages) {
     return (
       <Dialog fullScreen open={open} onClose={handleClose}>
-        {/* <div>pikkutestski</div> */}
         <div className="relative">
-          <HighlightOffIcon
+          <CloseIcon
+            fontSize="large"
             onClick={handleClose}
             color="primary"
             className="fixed-top-right"
           />
         </div>
+        <div className="centered">
+          {renderComicPage(list, page, address)}
 
-        {renderComicPage(list, page, address)}
+          <Stack
+            justifyContent="space-around"
+            alignItems="center"
+            direction="row"
+            spacing={2}
+          >
+            <ArrowBackIos onClick={() => handleDecrement()} />
+            {page > 0 && <p>Sivu {page}</p>}
 
-        <Stack
-          justifyContent="space-around"
-          alignItems="center"
-          direction="row"
-          spacing={2}
-        >
-          <ArrowBackIos onClick={() => handleClick(-1)} />
-          <p>sivu {page}</p>
-
-          <ArrowForwardIos onClick={() => handleClick(1)} />
-        </Stack>
+            <ArrowForwardIos onClick={() => handleIncrement()} />
+          </Stack>
+        </div>
       </Dialog>
     );
   }

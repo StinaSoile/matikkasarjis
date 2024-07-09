@@ -34,7 +34,7 @@ const CreateAccount = ({
           color: (theme) => theme.palette.grey[500],
         }}
       >
-        <CloseIcon />
+        <CloseIcon fontSize="large" />
       </IconButton>
       <DialogContent dividers>
         <Typography gutterBottom>

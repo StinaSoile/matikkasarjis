@@ -1,15 +1,16 @@
-// import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import ComicList from "./components/ComicList";
 import FrontPage from "./components/FrontPage";
-import VelhonTaloudenhoitajaOnePage from "./components/VelhonTaloudenhoitajaOnePage";
+
 import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
-import SiivetonLepakko from "./components/SiivetonLepakko";
 import ComicPages from "./components/ComicPages";
-import { VelhonTaloudenhoitajaPagesWithQuestions } from "./comicData";
+import {
+  SiivetonLepakkoPages,
+  VelhonTaloudenhoitajaPagesWithQuestions,
+} from "./comicData";
 
 const theme = createTheme({
   palette: {
@@ -33,10 +34,17 @@ function App() {
               </Stack>
             }
           />
-          <Route path="/comics/1" element={<VelhonTaloudenhoitajaOnePage />} />
-          <Route path="/comics/2" element={<SiivetonLepakko />} />
           <Route
-            path="/comics/3"
+            path="/comics/siivetonlepakko"
+            element={
+              <ComicPages
+                list={SiivetonLepakkoPages}
+                address="../../src/assets/SiivetonLepakko/"
+              />
+            }
+          />
+          <Route
+            path="/comics/velhontaloudenhoitaja"
             element={
               <ComicPages
                 list={VelhonTaloudenhoitajaPagesWithQuestions}

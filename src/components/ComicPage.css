@@ -1,3 +1,49 @@
-.MuiPaper-root {
+.comiclist-page {
+  padding-top: 2vh;
+}
+.comicPage {
+  width: 80%;
+  height: auto;
+}
+
+.comicBackground {
+  background: moccasin;
+}
+
+.relative {
+  position: relative;
+}
+
+.fixed-top-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.list-element {
+  max-width: 40%;
+  background: rgb(255, 250, 241);
+  padding: 4%;
+  text-align: center;
+  max-width: 200px;
+}
+
+.focused-list-element {
+  max-width: 50%;
+  background: rgb(255, 250, 241);
+  padding: 4%;
+  text-align: center;
+  max-width: 250px;
+}
+
+.comicpage-dialog {
   margin: 0;
+  padding: 0;
+  max-width: 100vw;
+  max-height: 90vh;
+}
+.centered {
+  margin-top: auto;
+  margin-bottom: auto;
+  text-align: center;
 }

@@ -1,8 +1,10 @@
 import { Stack } from "@mui/material";
+import "./ComicPage.css";
 
 import { Link } from "react-router-dom";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+
+import { useEffect, useState } from "react";
 import ComicPage from "./ComicPage";
 
 const ComicPages = ({
@@ -13,22 +15,51 @@ const ComicPages = ({
   address: string;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
-  // from address
-  // return all images according to list
-  // and to every image
-  // tie a link to picture
-  // but later picture needs to have other elements outside of it, that depend of a pic!
-  // eli data on: string[][]
-  /* [
-    ["address.s1.png", "question1", "answer1"], ["address.s2.png", "question2" ,"answer"]
-    ]
-*/
-  const renderComicPageModal = (page: number) => {
-    setPage(page);
+  useEffect(() => {
+    const element = document.getElementById(page.toString());
+    element?.scrollIntoView({ block: "center" });
+    function keyDownHandler(e: globalThis.KeyboardEvent) {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        handleIncrement();
+      }
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        handleDecrement();
+      }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        renderComicPageModal(page);
+      }
+    }
+
+    document.addEventListener("keydown", keyDownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  });
+
+  const renderComicPageModal = (p: number) => {
+    setPage(p);
     setOpen(true);
   };
+
+  const handleIncrement = () => {
+    const newPageNumber = page + 1;
+    if (newPageNumber >= 0 && newPageNumber < list.length) {
+      setPage(newPageNumber);
+    }
+  };
+  const handleDecrement = () => {
+    const newPageNumber = page - 1;
+    if (newPageNumber >= 0 && newPageNumber < list.length) {
+      setPage(newPageNumber);
+    }
+  };
+
   return (
     <>
       <Stack
@@ -38,19 +69,28 @@ const ComicPages = ({
         spacing={2}
       >
         <Link to="/">
-          <HighlightOffIcon color="primary" className="fixed-top-right" />
+          <CloseIcon
+            fontSize="large"
+            color="primary"
+            className="fixed-top-right"
+          />
         </Link>
         {list.map((item, i) => {
           const addr = `${address}${item[0]}`;
+          let classname = "list-element";
+          if (page === i) {
+            classname = "focused-list-element";
+          }
           // console.log(addr);
           return (
-            <div key={item[0]} className="list-element">
+            <div key={item[0]} id={i.toString()} className={classname}>
               <img
                 src={addr}
                 alt="sarjakuvasivu"
                 className="comicPage"
-                onClick={() => renderComicPageModal(i + 1)}
+                onClick={() => renderComicPageModal(i)}
               />
+              {i > 0 && <p>sivu {i}</p>}
             </div>
           );
         })}
@@ -58,10 +98,11 @@ const ComicPages = ({
       <ComicPage
         list={list}
         page={page}
-        setPage={setPage}
         handleClose={() => setOpen(false)}
         open={open}
         address={address}
+        handleDecrement={handleDecrement}
+        handleIncrement={handleIncrement}
       />
     </>
   );
