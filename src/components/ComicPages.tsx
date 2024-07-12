@@ -9,11 +9,13 @@ import ComicPage from "./ComicPage";
 import { IconButton } from "@mui/material";
 
 const ComicPages = ({
-  list,
-  address,
+  nameList,
+  importList,
 }: {
-  list: string[][];
-  address: string;
+  nameList: string[][];
+  importList: {
+    [key: string]: string;
+  };
 }) => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
@@ -49,15 +51,19 @@ const ComicPages = ({
 
   const handleIncrement = () => {
     const newPageNumber = page + 1;
-    if (newPageNumber >= 0 && newPageNumber < list.length) {
+    if (newPageNumber >= 0 && newPageNumber < nameList.length) {
       setPage(newPageNumber);
     }
   };
   const handleDecrement = () => {
     const newPageNumber = page - 1;
-    if (newPageNumber >= 0 && newPageNumber < list.length) {
+    if (newPageNumber >= 0 && newPageNumber < nameList.length) {
       setPage(newPageNumber);
     }
+  };
+
+  const findImageByName = (name: string): string | undefined => {
+    return importList[name];
   };
 
   return (
@@ -72,14 +78,14 @@ const ComicPages = ({
             />
           </Link>
         </IconButton>
-        {list.map((item, i) => {
-          const addr = `${address}${item[0]}`;
+        {nameList.map((item, i) => {
+          const imageSrc = findImageByName(item[0]);
           let classname = "list-element-for-pages";
           if (page === i) {
             classname = "list-element-for-pages focused";
           }
 
-          // console.log(addr);
+          // console.log(imageSrc);
           return (
             <div
               key={item[0]}
@@ -88,7 +94,7 @@ const ComicPages = ({
               onClick={() => renderComicPageModal(i)}
             >
               <img
-                src={addr}
+                src={imageSrc}
                 alt="sarjakuvasivu"
                 className="comic-page-in-list"
               />
@@ -98,11 +104,11 @@ const ComicPages = ({
         })}
       </div>
       <ComicPage
-        list={list}
+        list={nameList}
         page={page}
         handleClose={() => setOpen(false)}
         open={open}
-        address={address}
+        importList={importList}
         handleDecrement={handleDecrement}
         handleIncrement={handleIncrement}
       />

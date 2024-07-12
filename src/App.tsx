@@ -12,6 +12,8 @@ import {
   VelhonTaloudenhoitajaPagesWithQuestions,
 } from "./comicData";
 
+import { images } from "./generatedImageImports.ts";
+
 const theme = createTheme({
   palette: {
     primary: grey,
@@ -37,18 +39,15 @@ function App() {
           <Route
             path="/comics/siivetonlepakko"
             element={
-              <ComicPages
-                list={SiivetonLepakkoPages}
-                address="../../src/assets/SiivetonLepakko/"
-              />
+              <ComicPages nameList={SiivetonLepakkoPages} importList={images} />
             }
           />
           <Route
             path="/comics/velhontaloudenhoitaja"
             element={
               <ComicPages
-                list={VelhonTaloudenhoitajaPagesWithQuestions}
-                address="../../src/assets/VelhonTaloudenhoitaja/"
+                nameList={VelhonTaloudenhoitajaPagesWithQuestions}
+                importList={images}
               />
             }
           />

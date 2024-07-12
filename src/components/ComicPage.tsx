@@ -12,7 +12,7 @@ const ComicPage = ({
   page,
   handleClose,
   open,
-  address,
+  importList,
   handleDecrement,
   handleIncrement,
 }: {
@@ -20,7 +20,9 @@ const ComicPage = ({
   page: number;
   handleClose: () => void;
   open: boolean;
-  address: string;
+  importList: {
+    [key: string]: string;
+  };
   handleDecrement: () => void;
   handleIncrement: () => void;
 }) => {
@@ -47,21 +49,21 @@ const ComicPage = ({
     [handleDecrement, handleIncrement]
   );
 
-  const renderComicPage = (
-    pageArray: string[][],
-    page: number,
-    directory: string
-  ) => {
+  const findImageByName = (name: string): string | undefined => {
+    return importList[name];
+  };
+
+  const renderComicPage = (pageArray: string[][], page: number) => {
     const allPages = pageArray.length;
 
     if (page >= 0 && page < allPages) {
       const comicPage = pageArray[page][0];
-      const address = `${directory}${comicPage}`;
+      const imageSrc = findImageByName(comicPage);
 
       return (
         <MobileSwiper onSwipe={handleSwipe}>
           <img
-            src={address}
+            src={imageSrc}
             alt="Sarjakuvasivu"
             className="comicpage-in-modal shadow"
           />
@@ -95,7 +97,7 @@ const ComicPage = ({
         <div className="centered">
           <div>
             <Stack direction="column">
-              {renderComicPage(list, page, address)}
+              {renderComicPage(list, page)}
 
               <Stack
                 style={{

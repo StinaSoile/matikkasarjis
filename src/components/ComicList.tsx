@@ -57,7 +57,7 @@ const ComicList = () => {
         />
         <div className="div-in-comiclist">
           <div>Velhon taloudenhoitaja</div>
-          <div>Yläkoulun x:s luokka</div>
+          <div>Yläkoulun 8. luokka</div>
         </div>
       </div>
     </div>

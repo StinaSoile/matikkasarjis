@@ -4,8 +4,7 @@ import CreateAccount from "./CreateAccount";
 import Login from "./Login";
 import { useState } from "react";
 import MenuComponent from "./MenuComponent";
-
-// import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import FrontpagePicture from "../../src/assets/etusivunKuva.png";
 
 const FrontPage = () => {
   const [openAbout, setOpenAbout] = useState(false);
@@ -27,7 +26,7 @@ const FrontPage = () => {
       />
       <Login handleClose={() => setOpenLogin(false)} open={openLogin} />
       <img
-        src="../../Frontpagekokeilu.png"
+        src={FrontpagePicture}
         alt="Siivetön Lepakko keksipurkilla"
         className="frontpage-picture"
       />
