@@ -1,17 +1,18 @@
-import { Link } from "react-router-dom";
-import VelhonTaloudenhoitajaEtusivu from "../../src/assets/VelhonTaloudenhoitaja/s1.png";
-import SiivetonLepakkoEtusivu from "../../src/assets/SiivetonLepakko/etusivu.png";
+import { useNavigate } from "react-router-dom";
+import VelhonTaloudenhoitajaEtusivu from "../../src/assets/VelhonTaloudenhoitaja/velhontaloudenhoitaja-etusivu.png";
+import SiivetonLepakkoEtusivu from "../../src/assets/SiivetonLepakko/varsinainen-etusivu.png";
 import "./ComicPage.css";
 
-import { Stack } from "@mui/material";
+// import { Grid } from "@mui/material";
 
 // import ImageList from "@mui/material/ImageList";
 // import ImageListItem from "@mui/material/ImageListItem";
 // import ImageListItemBar from "@mui/material/ImageListItemBar";
 
 const ComicList = () => {
+  const navigate = useNavigate();
   return (
-    <div className="comiclist-page">
+    <div className="list-container center">
       {/* <ImageList className="image-list">
         <ImageListItem key="Dinon">
           <Link to={`/comics/1`}>
@@ -30,35 +31,35 @@ const ComicList = () => {
         </ImageListItem>
       </ImageList> */}
 
-      <Stack
-        direction="column"
-        justifyContent="space-around"
-        alignItems="center"
-        spacing={2}
+      <div
+        className="list-element-made-by-sergei"
+        onClick={() => navigate(`/comics/siivetonlepakko`)}
       >
-        <div className="list-element">
-          <Link to={`/comics/siivetonlepakko`}>
-            <img
-              src={SiivetonLepakkoEtusivu}
-              alt="Siivettömän lepakon matka -sarjakuva"
-              className="comicPage"
-            />
-          </Link>
+        <img
+          src={SiivetonLepakkoEtusivu}
+          alt="Siivettömän lepakon matka -sarjakuva"
+          className="comic-page-in-list shadow"
+        />
+        <div className="div-in-comiclist">
           <p>Siivettömän lepakon matka</p>
           <p>4. luokka</p>
         </div>
-        <div className="list-element">
-          <Link to={`/comics/velhontaloudenhoitaja`}>
-            <img
-              src={VelhonTaloudenhoitajaEtusivu}
-              alt="Velhon taloudenhoitaja -sarjakuva"
-              className="comicPage"
-            />
-          </Link>
-          <p>Velhon taloudenhoitaja</p>
-          <p>Yläkoulun x:s luokka</p>
+      </div>
+
+      <div
+        className="list-element-made-by-sergei"
+        onClick={() => navigate("/comics/velhontaloudenhoitaja")}
+      >
+        <img
+          src={VelhonTaloudenhoitajaEtusivu}
+          alt="Velhon taloudenhoitaja -sarjakuva"
+          className="comic-page-in-list shadow"
+        />
+        <div className="div-in-comiclist">
+          <div>Velhon taloudenhoitaja</div>
+          <div>Yläkoulun x:s luokka</div>
         </div>
-      </Stack>
+      </div>
     </div>
   );
 };

@@ -1,11 +1,12 @@
-import { Stack } from "@mui/material";
+// import { Grid } from "@mui/material";
 import "./ComicPage.css";
 
 import { Link } from "react-router-dom";
-import CloseIcon from "@mui/icons-material/Close";
-
+// import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useEffect, useState } from "react";
 import ComicPage from "./ComicPage";
+import { IconButton } from "@mui/material";
 
 const ComicPages = ({
   list,
@@ -14,9 +15,8 @@ const ComicPages = ({
   list: string[][];
   address: string;
 }) => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
-
   useEffect(() => {
     const element = document.getElementById(page.toString());
     element?.scrollIntoView({ block: "center" });
@@ -62,39 +62,41 @@ const ComicPages = ({
 
   return (
     <>
-      <Stack
-        direction="column"
-        justifyContent="space-around"
-        alignItems="center"
-        spacing={2}
-      >
-        <Link to="/">
-          <CloseIcon
-            fontSize="large"
-            color="primary"
-            className="fixed-top-right"
-          />
-        </Link>
+      <div className="list-container">
+        <IconButton style={{ minWidth: "3rem" }}>
+          <Link to="/">
+            <ArrowBackIcon
+              fontSize="large"
+              color="secondary"
+              className="fixed-top-left"
+            />
+          </Link>
+        </IconButton>
         {list.map((item, i) => {
           const addr = `${address}${item[0]}`;
-          let classname = "list-element";
+          let classname = "list-element-for-pages";
           if (page === i) {
-            classname = "focused-list-element";
+            classname = "list-element-for-pages focused";
           }
+
           // console.log(addr);
           return (
-            <div key={item[0]} id={i.toString()} className={classname}>
+            <div
+              key={item[0]}
+              id={i.toString()}
+              className={classname}
+              onClick={() => renderComicPageModal(i)}
+            >
               <img
                 src={addr}
                 alt="sarjakuvasivu"
-                className="comicPage"
-                onClick={() => renderComicPageModal(i)}
+                className="comic-page-in-list"
               />
               {i > 0 && <p>sivu {i}</p>}
             </div>
           );
         })}
-      </Stack>
+      </div>
       <ComicPage
         list={list}
         page={page}

@@ -1,42 +1,87 @@
-.comiclist-page {
-  padding-top: 2vh;
-}
-.comicPage {
-  width: 80%;
-  height: auto;
-}
-
-.comicBackground {
-  background: moccasin;
-}
-
 .relative {
   position: relative;
 }
 
-.fixed-top-right {
+.fixed-top-left {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
 }
 
-.list-element {
-  max-width: 40%;
-  background: rgb(255, 250, 241);
-  padding: 4%;
+.list-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 40rem;
+}
+
+.center {
+  justify-content: center;
+}
+
+.list-element-for-comiclist {
+  background: grey;
+  padding-top: 3px;
   text-align: center;
+  color: inherit;
+  text-decoration: none;
+  width: 40%;
   max-width: 200px;
+  min-width: 140px;
+  margin: 5px;
 }
 
-.focused-list-element {
-  max-width: 50%;
-  background: rgb(255, 250, 241);
-  padding: 4%;
+.list-element-made-by-sergei {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  width: 40%;
+  max-width: 200px;
+  min-width: 140px;
+}
+
+.div-in-comiclist {
+  color: white;
   text-align: center;
-  max-width: 250px;
+}
+.comic-page-in-list {
+  width: 90%;
+  height: auto;
+  margin: 2px;
+}
+.shadow {
+  box-shadow: 1rem 1rem 2rem black;
+  /* box-shadow: 0 0 1rem grey; */
 }
 
-.comicpage-dialog {
+.comic-page-in-list:hover {
+  box-shadow: 0 0 1rem grey;
+}
+
+.list-element-for-pages {
+  width: 25%;
+  padding-top: 3px;
+  text-align: center;
+  min-width: 70px;
+  max-width: 120px;
+  cursor: pointer;
+  filter: brightness(50%);
+  margin: 3px;
+  color: white;
+}
+
+.focused {
+  width: 30%;
+  max-width: 150px;
+  min-width: 100px;
+  filter: brightness(100%);
+  margin: 0px;
+}
+
+.comicpage-in-modal {
   margin: 0;
   padding: 0;
   max-width: 100vw;

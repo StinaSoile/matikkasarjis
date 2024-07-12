@@ -60,7 +60,11 @@ const ComicPage = ({
 
       return (
         <MobileSwiper onSwipe={handleSwipe}>
-          <img src={address} alt="Sarjakuvasivu" className="comicpage-dialog" />
+          <img
+            src={address}
+            alt="Sarjakuvasivu"
+            className="comicpage-in-modal shadow"
+          />
         </MobileSwiper>
       );
     }
@@ -69,29 +73,58 @@ const ComicPage = ({
 
   if (0 <= page && page <= allPages) {
     return (
-      <Dialog fullScreen open={open} onClose={handleClose}>
+      <Dialog
+        PaperProps={{
+          style: {
+            backgroundColor: "black",
+            // backgroundColor: "transparent",
+          },
+        }}
+        fullScreen
+        open={open}
+        onClose={handleClose}
+      >
         <div className="relative">
           <CloseIcon
             fontSize="large"
             onClick={handleClose}
             color="primary"
-            className="fixed-top-right"
+            className="fixed-top-left"
           />
         </div>
         <div className="centered">
-          {renderComicPage(list, page, address)}
+          <div>
+            <Stack direction="column">
+              {renderComicPage(list, page, address)}
 
-          <Stack
-            justifyContent="space-around"
-            alignItems="center"
-            direction="row"
-            spacing={2}
-          >
-            <ArrowBackIos onClick={() => handleDecrement()} />
-            {page > 0 && <p>Sivu {page}</p>}
+              <Stack
+                style={{
+                  color: "white",
+                  textAlign: "center",
+                  fontSize: "200%",
+                }}
+                alignItems="center"
+                direction="row"
+                spacing={2}
+                justifyContent="center"
+              >
+                {page > 0 && (
+                  <ArrowBackIos
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleDecrement()}
+                  />
+                )}
+                {page > 0 && <p>Sivu {page}</p>}
 
-            <ArrowForwardIos onClick={() => handleIncrement()} />
-          </Stack>
+                {page < allPages - 1 && (
+                  <ArrowForwardIos
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleIncrement()}
+                  />
+                )}
+              </Stack>
+            </Stack>
+          </div>
         </div>
       </Dialog>
     );

@@ -62,6 +62,7 @@ export const SiivetonLepakkoPages: string[][] = [
 ];
 
 export const VelhonTaloudenhoitajaPagesWithQuestions: string[][] = [
+  ["velhontaloudenhoitaja-etusivu.png", "question", "answer"],
   ["s1.png", "question", "answer"],
   ["s2.png", "question", "answer"],
   ["s3.png", "question", "answer"],

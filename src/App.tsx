@@ -53,10 +53,6 @@ function App() {
             }
           />
         </Routes>
-
-        <div>
-          <i>Stina Palomäki 2024</i>
-        </div>
       </Router>
     </ThemeProvider>
   );
