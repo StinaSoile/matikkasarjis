@@ -12,6 +12,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    // "composite": true,
+    // "declaration": true,
+    // "emitDeclarationOnly": true, // use this field instead of "noEmit"
     "jsx": "react-jsx",
 
     /* Linting */
