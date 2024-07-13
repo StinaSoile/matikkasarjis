@@ -3,33 +3,10 @@ import VelhonTaloudenhoitajaEtusivu from "../../src/assets/VelhonTaloudenhoitaja
 import SiivetonLepakkoEtusivu from "../../src/assets/SiivetonLepakko/varsinainen-etusivu.png";
 import "./ComicPage.css";
 
-// import { Grid } from "@mui/material";
-
-// import ImageList from "@mui/material/ImageList";
-// import ImageListItem from "@mui/material/ImageListItem";
-// import ImageListItemBar from "@mui/material/ImageListItemBar";
-
 const ComicList = () => {
   const navigate = useNavigate();
   return (
     <div className="list-container center">
-      {/* <ImageList className="image-list">
-        <ImageListItem key="Dinon">
-          <Link to={`/comics/1`}>
-            <img
-              src={VelhonTaloudenhoitajaEtusivu}
-              alt="Sarjakuvasivu"
-              className="comicPage"
-              loading="lazy"
-            />
-          </Link>
-          <ImageListItemBar
-            title="Velhon taloudenhoitaja"
-            subtitle="yläkoulun x:s luokka"
-            position="below"
-          />
-        </ImageListItem>
-      </ImageList> */}
 
       <div
         className="list-element-made-by-sergei"

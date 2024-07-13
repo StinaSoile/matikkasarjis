@@ -68,16 +68,16 @@ const ComicPages = ({
 
   return (
     <>
+      <IconButton style={{ minWidth: "3rem", minHeight: '3rem', zIndex: 1000 }}>
+        <Link to="/">
+          <ArrowBackIcon
+            fontSize="large"
+            color="secondary"
+            className="fixed-top-left"
+          />
+        </Link>
+      </IconButton>
       <div className="list-container">
-        <IconButton style={{ minWidth: "3rem" }}>
-          <Link to="/">
-            <ArrowBackIcon
-              fontSize="large"
-              color="secondary"
-              className="fixed-top-left"
-            />
-          </Link>
-        </IconButton>
         {nameList.map((item, i) => {
           const imageSrc = findImageByName(item[0]);
           let classname = "list-element-for-pages";
@@ -85,7 +85,6 @@ const ComicPages = ({
             classname = "list-element-for-pages focused";
           }
 
-          // console.log(imageSrc);
           return (
             <div
               key={item[0]}
@@ -98,7 +97,7 @@ const ComicPages = ({
                 alt="sarjakuvasivu"
                 className="comic-page-in-list"
               />
-              {i > 0 && <p>sivu {i}</p>}
+              <p>{i > 0 ? `sivu ${i}` : <>&nbsp;</>}</p>
             </div>
           );
         })}

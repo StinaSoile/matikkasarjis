@@ -1,8 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import ComicList from "./components/ComicList";
 import FrontPage from "./components/FrontPage";
-
 import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
@@ -32,7 +29,6 @@ function App() {
             element={
               <Stack justifyContent="center" alignItems="stretch">
                 <FrontPage />
-                <ComicList />
               </Stack>
             }
           />
