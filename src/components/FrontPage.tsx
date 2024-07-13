@@ -1,10 +1,10 @@
-// import { Stack, Button } from "@mui/material";
 import About from "./About";
 import CreateAccount from "./CreateAccount";
 import Login from "./Login";
 import { useState } from "react";
 import MenuComponent from "./MenuComponent";
 import FrontpagePicture from "../../src/assets/etusivunKuva.png";
+import ComicList from "./ComicList";
 
 const FrontPage = () => {
   const [openAbout, setOpenAbout] = useState(false);
@@ -15,8 +15,6 @@ const FrontPage = () => {
     <div className="frontPage">
       <MenuComponent
         setOpenAbout={setOpenAbout}
-        // setOpenCreateAccount={setOpenCreateAccount}
-        // setOpenLogin={setOpenLogin}
       />
 
       <About handleClose={() => setOpenAbout(false)} open={openAbout} />
@@ -30,6 +28,7 @@ const FrontPage = () => {
         alt="Siivetön Lepakko keksipurkilla"
         className="frontpage-picture"
       />
+      <ComicList />
     </div>
   );
 };
