@@ -4,12 +4,6 @@ import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
 import ComicPages from "./components/ComicPages";
-import {
-  SiivetonLepakkoPages,
-  VelhonTaloudenhoitajaPagesWithQuestions,
-} from "./comicData";
-
-import { images } from "./generatedImageImports.ts";
 
 const theme = createTheme({
   palette: {
@@ -33,19 +27,12 @@ function App() {
             }
           />
           <Route
-            path="/comics/siivetonlepakko"
-            element={
-              <ComicPages nameList={SiivetonLepakkoPages} importList={images} />
-            }
+            path="/comics/siivetonlepakko" // tähän oli joku kikka että elementti voi lukea pathista infoa
+            element={<ComicPages comicName={"siivetonlepakko"} />}
           />
           <Route
             path="/comics/velhontaloudenhoitaja"
-            element={
-              <ComicPages
-                nameList={VelhonTaloudenhoitajaPagesWithQuestions}
-                importList={images}
-              />
-            }
+            element={<ComicPages comicName={"velhontaloudenhoitaja"} />}
           />
         </Routes>
       </Router>

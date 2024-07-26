@@ -1,28 +1,26 @@
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
-// import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import "./ComicPage.css";
 import { Dialog, Stack } from "@mui/material";
 import { useCallback } from "react";
-// import { useKeyboardShortcut } from "../keyboardListener";
 import MobileSwiper from "./MobileSwiper";
+import { Page } from "../types";
+import { apiBaseUrl } from "../constants";
 
 const ComicPage = ({
+  comicName,
   list,
   page,
   handleClose,
   open,
-  importList,
   handleDecrement,
   handleIncrement,
 }: {
-  list: string[][];
+  comicName: string;
+  list: Page[];
   page: number;
   handleClose: () => void;
   open: boolean;
-  importList: {
-    [key: string]: string;
-  };
   handleDecrement: () => void;
   handleIncrement: () => void;
 }) => {
@@ -49,16 +47,17 @@ const ComicPage = ({
     [handleDecrement, handleIncrement]
   );
 
-  const findImageByName = (name: string): string | undefined => {
-    return importList[name];
-  };
+  // const findImageByName = (name: string): string | undefined => {
+  //   return importList[name];
+  // };
 
-  const renderComicPage = (pageArray: string[][], page: number) => {
+  const renderComicPage = (pageArray: Page[], page: number) => {
     const allPages = pageArray.length;
 
     if (page >= 0 && page < allPages) {
-      const comicPage = pageArray[page][0];
-      const imageSrc = findImageByName(comicPage);
+      const comicPage = pageArray[page].pictureName;
+      // const imageSrc = findImageByName(comicPage);
+      const imageSrc = `${apiBaseUrl}/images/${comicName}/${comicPage}`;
 
       return (
         <MobileSwiper onSwipe={handleSwipe}>
@@ -79,7 +78,6 @@ const ComicPage = ({
         PaperProps={{
           style: {
             backgroundColor: "black",
-            // backgroundColor: "transparent",
           },
         }}
         fullScreen
