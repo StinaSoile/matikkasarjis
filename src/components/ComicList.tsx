@@ -1,13 +1,33 @@
 import { useNavigate } from "react-router-dom";
-import VelhonTaloudenhoitajaEtusivu from "../../src/assets/VelhonTaloudenhoitaja/velhontaloudenhoitaja-etusivu.png";
-import SiivetonLepakkoEtusivu from "../../src/assets/SiivetonLepakko/varsinainen-etusivu.png";
+import { useState, useEffect } from "react";
+import { apiBaseUrl } from "../constants";
+import comicService from "../services/comicService";
+
 import "./ComicPage.css";
 
 const ComicList = () => {
   const navigate = useNavigate();
+  const [SiivetonLepakkoEtusivu, setSiivetonLepakkoEtusivu] = useState("");
+  const [VelhonTaloudenhoitajaEtusivu, setVelhonTaloudenhoitajaEtusivu] =
+    useState("");
+  useEffect(() => {
+    comicService
+      .getFrontPage("siivetonlepakko")
+      .then((lepakko) =>
+        setSiivetonLepakkoEtusivu(
+          `${apiBaseUrl}/images/siivetonlepakko/${lepakko}`
+        )
+      );
+    comicService
+      .getFrontPage("velhontaloudenhoitaja")
+      .then((lepakko) =>
+        setVelhonTaloudenhoitajaEtusivu(
+          `${apiBaseUrl}/images/velhontaloudenhoitaja/${lepakko}`
+        )
+      );
+  });
   return (
     <div className="list-container center">
-
       <div
         className="list-element-made-by-sergei"
         onClick={() => navigate(`/comics/siivetonlepakko`)}
