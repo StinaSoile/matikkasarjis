@@ -3,19 +3,17 @@ import CreateAccount from "./CreateAccount";
 import Login from "./Login";
 import { useState } from "react";
 import MenuComponent from "./MenuComponent";
-import FrontpagePicture from "../../src/assets/etusivunKuva.png";
 import ComicList from "./ComicList";
+import { apiBaseUrl } from "../constants";
 
 const FrontPage = () => {
   const [openAbout, setOpenAbout] = useState(false);
   const [openCreateAccount, setOpenCreateAccount] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
-
+  const imageSrc = `${apiBaseUrl}/images/etusivunkuva.png`;
   return (
     <div className="frontPage">
-      <MenuComponent
-        setOpenAbout={setOpenAbout}
-      />
+      <MenuComponent setOpenAbout={setOpenAbout} />
 
       <About handleClose={() => setOpenAbout(false)} open={openAbout} />
       <CreateAccount
@@ -24,7 +22,7 @@ const FrontPage = () => {
       />
       <Login handleClose={() => setOpenLogin(false)} open={openLogin} />
       <img
-        src={FrontpagePicture}
+        src={imageSrc}
         alt="Siivetön Lepakko keksipurkilla"
         className="frontpage-picture"
       />

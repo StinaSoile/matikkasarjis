@@ -47,16 +47,11 @@ const ComicPage = ({
     [handleDecrement, handleIncrement]
   );
 
-  // const findImageByName = (name: string): string | undefined => {
-  //   return importList[name];
-  // };
-
   const renderComicPage = (pageArray: Page[], page: number) => {
     const allPages = pageArray.length;
 
     if (page >= 0 && page < allPages) {
       const comicPage = pageArray[page].pictureName;
-      // const imageSrc = findImageByName(comicPage);
       const imageSrc = `${apiBaseUrl}/images/${comicName}/${comicPage}`;
 
       return (
