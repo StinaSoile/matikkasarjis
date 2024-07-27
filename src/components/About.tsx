@@ -43,7 +43,7 @@ const About = ({
           mieluummin matikkasarjakuvia yhdistäen taideharrastuksensa
           matematiikkaan kuin opettaa yläkoulussa. Näin hän luo illuusion että
           hänen osaamisellaan olisi jotakin väliä yhteiskunnalle, vaikka
-          todellisuudessa hän on kolmekymppinen työtön joka vaan jatkuvasti
+          todellisuudessa hän on kolmekymppinen työtön joka vain jatkuvasti
           keksii uusia tekosyitä opiskella lisää.
         </Typography>
       </DialogContent>

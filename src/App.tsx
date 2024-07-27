@@ -27,7 +27,7 @@ function App() {
             }
           />
           <Route
-            path="/comics/siivetonlepakko" // tähän oli joku kikka että elementti voi lukea pathista infoa
+            path="/comics/siivetonlepakko"
             element={<ComicPages comicName={"siivetonlepakko"} />}
           />
           <Route
