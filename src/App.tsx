@@ -14,6 +14,7 @@ const theme = createTheme({
 });
 
 function App() {
+  const comicNames = ["siivetonlepakko", "velhontaloudenhoitaja"];
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -26,14 +27,14 @@ function App() {
               </Stack>
             }
           />
-          <Route
-            path="/comics/siivetonlepakko"
-            element={<ComicPages comicName={"siivetonlepakko"} />}
-          />
-          <Route
-            path="/comics/velhontaloudenhoitaja"
-            element={<ComicPages comicName={"velhontaloudenhoitaja"} />}
-          />
+          {comicNames.map((comicName) => {
+            return (
+              <Route
+                path={`/comics/${comicName}`}
+                element={<ComicPages comicName={comicName} />}
+              />
+            );
+          })}
         </Routes>
       </Router>
     </ThemeProvider>
