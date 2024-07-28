@@ -5,7 +5,7 @@ import comicService from "../services/comicService";
 
 import "./ComicPage.css";
 
-const ComicList = () => {
+const ComicGallery = () => {
   const navigate = useNavigate();
 
   const [comicInfo, setComicInfo] = useState([
@@ -72,4 +72,4 @@ const ComicList = () => {
   );
 };
 
-export default ComicList;
+export default ComicGallery;

@@ -6,10 +6,11 @@ import { useCallback } from "react";
 import MobileSwiper from "./MobileSwiper";
 import { Page } from "../types";
 import { apiBaseUrl } from "../constants";
+import MathQuestions from "./MathQuestions";
 
-const ComicPage = ({
+const ComicPageView = ({
   comicName,
-  list,
+  comic,
   page,
   handleClose,
   open,
@@ -17,14 +18,14 @@ const ComicPage = ({
   handleIncrement,
 }: {
   comicName: string;
-  list: Page[];
+  comic: Page[];
   page: number;
   handleClose: () => void;
   open: boolean;
   handleDecrement: () => void;
   handleIncrement: () => void;
 }) => {
-  const allPages = list.length;
+  const allPages = comic.length;
 
   const handleSwipe = useCallback(
     ({ deltaX, deltaY }: { deltaX: number; deltaY: number }) => {
@@ -90,7 +91,7 @@ const ComicPage = ({
         <div className="centered">
           <div>
             <Stack direction="column">
-              {renderComicPage(list, page)}
+              {renderComicPage(comic, page)}
 
               <Stack
                 style={{
@@ -118,6 +119,7 @@ const ComicPage = ({
                   />
                 )}
               </Stack>
+              <MathQuestions page={page} comic={comic} />
             </Stack>
           </div>
         </div>
@@ -126,4 +128,4 @@ const ComicPage = ({
   }
   return <></>;
 };
-export default ComicPage;
+export default ComicPageView;

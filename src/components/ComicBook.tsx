@@ -3,13 +3,13 @@ import "./ComicPage.css";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useEffect, useState } from "react";
-import ComicPage from "./ComicPage";
+import ComicPageView from "./ComicPageView";
 import { IconButton } from "@mui/material";
 import comicService from "../services/comicService";
 import { Page } from "../types";
 import { apiBaseUrl } from "../constants";
 
-const ComicPages = ({ comicName }: { comicName: string }) => {
+const ComicBook = ({ comicName }: { comicName: string }) => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [comic, setComic] = useState<Page[]>([]);
@@ -98,9 +98,9 @@ const ComicPages = ({ comicName }: { comicName: string }) => {
           );
         })}
       </div>
-      <ComicPage
+      <ComicPageView
         comicName={comicName}
-        list={comic}
+        comic={comic}
         page={page}
         handleClose={() => setOpen(false)}
         open={open}
@@ -111,4 +111,4 @@ const ComicPages = ({ comicName }: { comicName: string }) => {
   );
 };
 
-export default ComicPages;
+export default ComicBook;
