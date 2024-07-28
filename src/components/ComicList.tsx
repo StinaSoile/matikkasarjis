@@ -6,26 +6,36 @@ import comicService from "../services/comicService";
 import "./ComicPage.css";
 
 const ComicList = () => {
+  interface LooseObject {
+    [key: string]: string;
+  }
+
   const navigate = useNavigate();
-  const [SiivetonLepakkoEtusivu, setSiivetonLepakkoEtusivu] = useState("");
-  const [VelhonTaloudenhoitajaEtusivu, setVelhonTaloudenhoitajaEtusivu] =
-    useState("");
-  useEffect(() => {
-    comicService
-      .getFrontPage("siivetonlepakko")
-      .then((lepakko) =>
-        setSiivetonLepakkoEtusivu(
-          `${apiBaseUrl}/images/siivetonlepakko/${lepakko}`
-        )
-      );
-    comicService
-      .getFrontPage("velhontaloudenhoitaja")
-      .then((lepakko) =>
-        setVelhonTaloudenhoitajaEtusivu(
-          `${apiBaseUrl}/images/velhontaloudenhoitaja/${lepakko}`
-        )
-      );
+
+  const [comicFrontPages, setComicFrontPages] = useState<LooseObject>({
+    siivetonlepakko: "",
+    velhontaloudenhoitaja: "",
   });
+
+  const getComicFrontPages = async () => {
+    const newComicFrontPages: LooseObject = { ...comicFrontPages };
+
+    for (const [comic] of Object.entries(comicFrontPages)) {
+      await comicService
+        .getFrontPage(comic)
+        .then(
+          (frontpage) =>
+            (newComicFrontPages[
+              comic
+            ] = `${apiBaseUrl}/images/${comic}/${frontpage}`)
+        );
+    }
+    setComicFrontPages(newComicFrontPages);
+  };
+
+  useEffect(() => {
+    getComicFrontPages();
+  }, []);
   return (
     <div className="list-container center">
       <div
@@ -33,7 +43,7 @@ const ComicList = () => {
         onClick={() => navigate(`/comics/siivetonlepakko`)}
       >
         <img
-          src={SiivetonLepakkoEtusivu}
+          src={comicFrontPages.siivetonlepakko}
           alt="Siivettömän lepakon matka -sarjakuva"
           className="comic-page-in-list shadow"
         />
@@ -48,7 +58,7 @@ const ComicList = () => {
         onClick={() => navigate("/comics/velhontaloudenhoitaja")}
       >
         <img
-          src={VelhonTaloudenhoitajaEtusivu}
+          src={comicFrontPages.velhontaloudenhoitaja}
           alt="Velhon taloudenhoitaja -sarjakuva"
           className="comic-page-in-list shadow"
         />
