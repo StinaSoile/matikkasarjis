@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import FrontPage from "./components/FrontPage";
+import HomeScreen from "./components/HomeScreen";
 import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
-import ComicPages from "./components/ComicPages";
+import ComicBook from "./components/ComicBook";
 
 const theme = createTheme({
   palette: {
@@ -23,7 +23,7 @@ function App() {
             path="/"
             element={
               <Stack justifyContent="center" alignItems="stretch">
-                <FrontPage />
+                <HomeScreen />
               </Stack>
             }
           />
@@ -32,7 +32,7 @@ function App() {
               <Route
                 key={comicName}
                 path={`/comics/${comicName}`}
-                element={<ComicPages key={comicName} comicName={comicName} />}
+                element={<ComicBook key={comicName} comicName={comicName} />}
               />
             );
           })}
