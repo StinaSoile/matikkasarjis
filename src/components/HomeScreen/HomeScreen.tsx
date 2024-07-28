@@ -4,7 +4,7 @@ import Login from "./Login";
 import { useState } from "react";
 import MenuComponent from "./MenuComponent";
 import ComicGallery from "./ComicGallery";
-import { apiBaseUrl } from "../constants";
+import { apiBaseUrl } from "../../constants";
 
 const HomeScreen = () => {
   const [openAbout, setOpenAbout] = useState(false);

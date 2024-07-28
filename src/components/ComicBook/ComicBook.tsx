@@ -5,9 +5,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useEffect, useState } from "react";
 import ComicPageView from "./ComicPageView";
 import { IconButton } from "@mui/material";
-import comicService from "../services/comicService";
-import { Page } from "../types";
-import { apiBaseUrl } from "../constants";
+import comicService from "../../services/comicService";
+import { Page } from "../../types";
+import { apiBaseUrl } from "../../constants";
 
 const ComicBook = ({ comicName }: { comicName: string }) => {
   const [open, setOpen] = useState(false);

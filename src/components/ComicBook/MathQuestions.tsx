@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { Page, Question } from "../types";
+import { Page, Question } from "../../types";
 import { useEffect, useState } from "react";
 import { SyntheticEvent } from "react";
 const MathQuestions = ({ comic, page }: { comic: Page[]; page: number }) => {

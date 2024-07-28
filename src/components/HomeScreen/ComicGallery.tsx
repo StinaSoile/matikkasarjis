@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { apiBaseUrl } from "../constants";
-import comicService from "../services/comicService";
+import { apiBaseUrl } from "../../constants";
+import comicService from "../../services/comicService";
 
-import "./ComicPage.css";
+import "../ComicBook/ComicPage.css";
 
 const ComicGallery = () => {
   const navigate = useNavigate();
