@@ -4,8 +4,8 @@ import "./ComicPage.css";
 import { Dialog, Stack } from "@mui/material";
 import { useCallback } from "react";
 import MobileSwiper from "./MobileSwiper";
-import { Page } from "../types";
-import { apiBaseUrl } from "../constants";
+import { Page } from "../../types";
+import { apiBaseUrl } from "../../constants";
 import MathQuestions from "./MathQuestions";
 
 const ComicPageView = ({

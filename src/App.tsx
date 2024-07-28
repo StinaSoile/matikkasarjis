@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomeScreen from "./components/HomeScreen";
+import HomeScreen from "./components/HomeScreen/HomeScreen";
 import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
-import ComicBook from "./components/ComicBook";
+import ComicBook from "./components/ComicBook/ComicBook";
 
 const theme = createTheme({
   palette: {
