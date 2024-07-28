@@ -29,7 +29,7 @@ const ComicList = () => {
   return (
     <div className="list-container center">
       <div
-        className="list-element-made-by-sergei"
+        className="list-element-for-comiclist"
         onClick={() => navigate(`/comics/siivetonlepakko`)}
       >
         <img
@@ -44,7 +44,7 @@ const ComicList = () => {
       </div>
 
       <div
-        className="list-element-made-by-sergei"
+        className="list-element-for-comiclist"
         onClick={() => navigate("/comics/velhontaloudenhoitaja")}
       >
         <img

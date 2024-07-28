@@ -20,18 +20,6 @@
 }
 
 .list-element-for-comiclist {
-  background: grey;
-  padding-top: 3px;
-  text-align: center;
-  color: inherit;
-  text-decoration: none;
-  width: 40%;
-  max-width: 200px;
-  min-width: 140px;
-  margin: 5px;
-}
-
-.list-element-made-by-sergei {
   display: flex;
   flex-direction: column;
   align-items: center;
