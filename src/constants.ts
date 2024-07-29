@@ -1,4 +1,4 @@
 export const apiBaseUrl =
-  process.env.NODE_ENV === "production"
+  import.meta.env.VITE_BACKEND === "production"
     ? "https://matikkasarjis-backend.onrender.com/api"
     : "http://localhost:3000/api";

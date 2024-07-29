@@ -6,67 +6,68 @@ import comicService from "../services/comicService";
 import "./ComicPage.css";
 
 const ComicList = () => {
-  interface LooseObject {
-    [key: string]: string;
-  }
-
   const navigate = useNavigate();
 
-  const [comicFrontPages, setComicFrontPages] = useState<LooseObject>({
-    siivetonlepakko: "",
-    velhontaloudenhoitaja: "",
-  });
+  const [comicInfo, setComicInfo] = useState([
+    {
+      comicName: "siivetonlepakko",
+      frontPageImageSrc: "",
+      alt: "Siivettömän lepakon matka -sarjakuva",
+      description: (
+        <div className="div-in-comiclist">
+          <p>Siivettömän lepakon matka</p>
+          <p>4. luokka</p>
+        </div>
+      ),
+    },
+    {
+      comicName: "velhontaloudenhoitaja",
+      frontPageImageSrc: "",
+      alt: "Velhon taloudenhoitaja -sarjakuva",
+      description: (
+        <div className="div-in-comiclist">
+          <div>Velhon taloudenhoitaja</div>
+          <div>Yläkoulun 8. luokka</div>
+        </div>
+      ),
+    },
+  ]);
 
   const getComicFrontPages = async () => {
-    const newComicFrontPages: LooseObject = { ...comicFrontPages };
-
-    for (const [comic] of Object.entries(comicFrontPages)) {
-      await comicService
-        .getFrontPage(comic)
-        .then(
-          (frontpage) =>
-            (newComicFrontPages[
-              comic
-            ] = `${apiBaseUrl}/images/${comic}/${frontpage}`)
-        );
-    }
-    setComicFrontPages(newComicFrontPages);
+    Promise.all(
+      comicInfo.map((x) => comicService.getFrontPage(x.comicName))
+    ).then((values) => {
+      setComicInfo(
+        comicInfo.map((a, i) => ({
+          ...a,
+          frontPageImageSrc: `${apiBaseUrl}/images/${a.comicName}/${values[i]}`,
+        }))
+      );
+    });
   };
 
   useEffect(() => {
     getComicFrontPages();
   }, []);
+
   return (
     <div className="list-container center">
-      <div
-        className="list-element-for-comiclist"
-        onClick={() => navigate(`/comics/siivetonlepakko`)}
-      >
-        <img
-          src={comicFrontPages.siivetonlepakko}
-          alt="Siivettömän lepakon matka -sarjakuva"
-          className="comic-page-in-list shadow"
-        />
-        <div className="div-in-comiclist">
-          <p>Siivettömän lepakon matka</p>
-          <p>4. luokka</p>
-        </div>
-      </div>
-
-      <div
-        className="list-element-for-comiclist"
-        onClick={() => navigate("/comics/velhontaloudenhoitaja")}
-      >
-        <img
-          src={comicFrontPages.velhontaloudenhoitaja}
-          alt="Velhon taloudenhoitaja -sarjakuva"
-          className="comic-page-in-list shadow"
-        />
-        <div className="div-in-comiclist">
-          <div>Velhon taloudenhoitaja</div>
-          <div>Yläkoulun 8. luokka</div>
-        </div>
-      </div>
+      {comicInfo.map((x) => {
+        return (
+          <div
+            key={x.comicName}
+            className="list-element-for-comiclist"
+            onClick={() => navigate(`/comics/${x.comicName}`)}
+          >
+            <img
+              src={x.frontPageImageSrc}
+              alt={x.alt}
+              className="comic-page-in-list shadow"
+            />
+            {x.description}
+          </div>
+        );
+      })}
     </div>
   );
 };
