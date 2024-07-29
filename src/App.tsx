@@ -30,8 +30,9 @@ function App() {
           {comicNames.map((comicName) => {
             return (
               <Route
+                key={comicName}
                 path={`/comics/${comicName}`}
-                element={<ComicPages comicName={comicName} />}
+                element={<ComicPages key={comicName} comicName={comicName} />}
               />
             );
           })}
