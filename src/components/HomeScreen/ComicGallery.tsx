@@ -14,7 +14,11 @@ const ComicGallery = () => {
       frontPageImageSrc: "",
       alt: "Siivettömän lepakon matka -sarjakuva",
       description: (
+<<<<<<< HEAD
         <div className="div-in-comiclist">
+=======
+        <div className="div-in-comicgallery">
+>>>>>>> be39497 (Did same changes as in connecting backend -branch:)
           <p>Siivettömän lepakon matka</p>
           <p>4. luokka</p>
         </div>
@@ -25,7 +29,11 @@ const ComicGallery = () => {
       frontPageImageSrc: "",
       alt: "Velhon taloudenhoitaja -sarjakuva",
       description: (
+<<<<<<< HEAD
         <div className="div-in-comiclist">
+=======
+        <div className="div-in-comicgallery">
+>>>>>>> be39497 (Did same changes as in connecting backend -branch:)
           <div>Velhon taloudenhoitaja</div>
           <div>Yläkoulun 8. luokka</div>
         </div>
@@ -56,7 +64,11 @@ const ComicGallery = () => {
         return (
           <div
             key={x.comicName}
+<<<<<<< HEAD
             className="list-element-for-comiclist"
+=======
+            className="list-element-for-comicgallery"
+>>>>>>> be39497 (Did same changes as in connecting backend -branch:)
             onClick={() => navigate(`/comics/${x.comicName}`)}
           >
             <img
