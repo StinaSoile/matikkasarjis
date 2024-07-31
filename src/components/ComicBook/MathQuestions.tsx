@@ -2,98 +2,92 @@ import { Button } from "@mui/material";
 import { Page, Question } from "../../types";
 import { useEffect, useState } from "react";
 import { SyntheticEvent } from "react";
-const MathQuestions = ({ comic, page }: { comic: Page[]; page: number }) => {
+import comicService from "../../services/comicService";
+const MathQuestions = ({
+  setKey,
+  comicName,
+  comic,
+  page,
+}: {
+  setKey: React.Dispatch<React.SetStateAction<string | undefined>>;
+  comicName: string;
+  comic: Page[];
+  page: number;
+}) => {
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [values, setValues] = useState<string[]>([""]);
-  const [rightAnswers, setRightAnswers] = useState<boolean[]>([]);
+  const [answers, setAnswers] = useState<string[]>([""]);
+  // Vastaukset backendiin bodyssa, listana stringeja.
 
+  // Voisin tehdä Questions-tyypin sittenkin sellaiseksi frontissa että answer on vapaaehtoinen.
+  // Sitten voisin vaan kattoa että jos answer on, se tarkoittaa että on jo vastattu oikein,
+  // joten vastausta ei enää lähetetä backiin.
+  // Jos ei ole vastausta, lähetellään tavaraa backiin.
   useEffect(() => {
-    setQuestions([]);
-
+    console.log(comic[page]);
     if (comic[page].questionList) {
       let newQuestions: Question[] = [];
-      let wrongAnswers: boolean[] = [];
       for (let q = 0; q < comic[page].questionList.length; q++) {
         const question = comic[page].questionList[q];
         newQuestions = [...newQuestions, question];
-        wrongAnswers = [...wrongAnswers, false];
-        console.log(question.question);
       }
-      setRightAnswers(wrongAnswers);
       setQuestions(newQuestions);
     }
-  }, [page, comic]);
+  }, [page]);
 
-  const openNextPage = (i: number) => {
-    if (!comic[page + i]) {
-      // setOpenedPage(page + i - 1);
-      return;
-    }
-    // if (openedPage > page + i) return;
-    if (comic[page + i].questionList) {
-      // setOpenedPage(page + i);
-      return;
-    } else return;
-  };
-
-  const handleAnswer = (e: SyntheticEvent, i: number) => {
+  const handleAnswer = async (e: SyntheticEvent) => {
     e.preventDefault();
-    // hae vaan oikealla vastauksella uusi key ja sillä uudet sivut. Ei tarvi openedPagea mihinkään.
-    console.log(questions[i].answer);
-    if (values[i] === questions[i].answer) {
-      console.log("Oikea vastaus!!!");
-      if (!rightAnswers.includes(false)) {
-        openNextPage(1);
-      }
+    if (
+      comic[page].questionList &&
+      comic[page].questionList[0].question &&
+      !comic[page].questionList[0].answer
+    ) {
+      const key = await comicService.postAnswers(comicName, page, answers);
+      setKey(key);
+      // await comicService
+      //   .getPages(comicName, key)
+      //   .then((data) => setKey(data));
     }
+    // hae vaan oikealla vastauksella uusi key ja sillä uudet sivut. Ei tarvi openedPagea mihinkään.
+    else return;
   };
 
   const changeValues = (
     target: React.ChangeEvent<HTMLInputElement>,
     i: number
   ) => {
-    const newValues = [...values];
+    const newValues = [...answers];
     newValues[i] = target.target.value;
-    if (questions[i].answer === target.target.value) {
-      const newRightAnswers = [...rightAnswers];
-      newRightAnswers[i] = true;
-      setRightAnswers(newRightAnswers);
-    }
-    setValues(newValues);
+    setAnswers(newValues);
   };
 
   return (
-    <>
+    <form onSubmit={(e) => handleAnswer(e)}>
       {questions.map((q, i) => {
         return (
-          <>
-            <div
-              key={i}
-              style={{
-                color: "white",
-                textAlign: "center",
-              }}
-            >
-              <div>{q.question}</div>
+          <div
+            key={i}
+            style={{
+              color: "white",
+              textAlign: "center",
+            }}
+          >
+            <div>{q.question}</div>
 
-              <form onSubmit={(e) => handleAnswer(e, i)}>
-                <label>
-                  <input
-                    value={values[i]}
-                    type="text"
-                    name="name"
-                    onChange={(target) => changeValues(target, i)}
-                  />
-                </label>
-                <Button variant="contained" type="submit" color="primary">
-                  Arvaa
-                </Button>
-              </form>
-            </div>
-          </>
+            <label>
+              <input
+                value={answers[i]}
+                type="text"
+                name="name"
+                onChange={(target) => changeValues(target, i)}
+              />
+            </label>
+          </div>
         );
       })}
-    </>
+      <Button variant="contained" type="submit" color="primary">
+        Arvaa
+      </Button>
+    </form>
   );
 };
 

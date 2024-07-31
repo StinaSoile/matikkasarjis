@@ -27,8 +27,14 @@ const getPicture = async (name: string) => {
   return picture;
 };
 
+const postAnswers = async (name: string, page: number, answers: string[]) => {
+  const key = await axios.post(`${apiBaseUrl}/comics/${name}/${page}`, answers);
+  return key.data;
+};
+
 export default {
   getFrontPage,
   getPages,
   getPicture,
+  postAnswers,
 };

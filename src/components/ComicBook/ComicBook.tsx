@@ -18,8 +18,8 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
     const getPages = async (comicName: string, key: string | undefined) => {
       comicService.getPages(comicName, key).then((data) => setComic(data));
     };
-    setKey(undefined);
     getPages(comicName, key);
+    console.log(key);
     const element = document.getElementById(page.toString());
     element?.scrollIntoView({ block: "center" });
     function keyDownHandler(e: globalThis.KeyboardEvent) {
@@ -106,6 +106,7 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
         open={open}
         handleDecrement={handleDecrement}
         handleIncrement={handleIncrement}
+        setKey={setKey}
       />
     </>
   );
