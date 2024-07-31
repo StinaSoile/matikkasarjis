@@ -16,6 +16,7 @@ const ComicPageView = ({
   open,
   handleDecrement,
   handleIncrement,
+  setKey,
 }: {
   comicName: string;
   comic: Page[];
@@ -24,6 +25,7 @@ const ComicPageView = ({
   open: boolean;
   handleDecrement: () => void;
   handleIncrement: () => void;
+  setKey: React.Dispatch<React.SetStateAction<string | undefined>>;
 }) => {
   const allPages = comic.length;
 
@@ -119,7 +121,12 @@ const ComicPageView = ({
                   />
                 )}
               </Stack>
-              <MathQuestions page={page} comic={comic} />
+              <MathQuestions
+                setKey={setKey}
+                comicName={comicName}
+                page={page}
+                comic={comic}
+              />
             </Stack>
           </div>
         </div>

@@ -6,13 +6,13 @@ export interface Page {
 
 export interface Question {
   question: string;
-  answer: string;
+  answer?: string;
 }
 
-export interface PageWithNoAnswer {
-  key?: string;
-  pictureName: string;
-  questionList?: QuestionWithNoAnswer[];
-}
+// export interface PageWithNoAnswer {
+//   key?: string;
+//   pictureName: string;
+//   questionList?: QuestionWithNoAnswer[];
+// }
 
-export type QuestionWithNoAnswer = Omit<Question, "answer">;
+// export type QuestionWithNoAnswer = Omit<Question, "answer">;
