@@ -4,6 +4,7 @@ import { apiBaseUrl } from "../../constants";
 import comicService from "../../services/comicService";
 
 import "../ComicBook/ComicPage.css";
+import axios from "axios";
 
 const ComicGallery = () => {
   const navigate = useNavigate();
@@ -34,16 +35,25 @@ const ComicGallery = () => {
   ]);
 
   const getComicFrontPages = async () => {
-    Promise.all(
-      comicInfo.map((x) => comicService.getFrontPage(x.comicName))
-    ).then((values) => {
-      setComicInfo(
-        comicInfo.map((a, i) => ({
-          ...a,
-          frontPageImageSrc: `${apiBaseUrl}/images/${a.comicName}/${values[i]}`,
-        }))
-      );
-    });
+    try {
+      Promise.all(
+        comicInfo.map((x) => comicService.getFrontPage(x.comicName))
+      ).then((values) => {
+        setComicInfo(
+          comicInfo.map((a, i) => ({
+            ...a,
+            frontPageImageSrc: `${apiBaseUrl}/images/${a.comicName}/${values[i]}`,
+          }))
+        );
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.status);
+        console.log(error.response);
+      } else {
+        console.error(error);
+      }
+    }
   };
 
   useEffect(() => {

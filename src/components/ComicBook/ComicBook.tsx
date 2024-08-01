@@ -8,6 +8,7 @@ import { IconButton } from "@mui/material";
 import comicService from "../../services/comicService";
 import { Page } from "../../types";
 import { apiBaseUrl } from "../../constants";
+import axios from "axios";
 
 const ComicBook = ({ comicName }: { comicName: string }) => {
   const [open, setOpen] = useState(false);
@@ -16,7 +17,16 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
   const [key, setKey] = useState<string | undefined>(undefined);
   useEffect(() => {
     const getPages = async (comicName: string, key: string | undefined) => {
-      comicService.getPages(comicName, key).then((data) => setComic(data));
+      try {
+        comicService.getPages(comicName, key).then((data) => setComic(data));
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.log(error.status);
+          console.log(error.response);
+        } else {
+          console.error(error);
+        }
+      }
     };
     getPages(comicName, key);
     console.log(key);

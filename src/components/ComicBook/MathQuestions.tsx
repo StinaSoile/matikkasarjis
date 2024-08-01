@@ -3,6 +3,7 @@ import { Page, Question } from "../../types";
 import { useEffect, useState } from "react";
 import { SyntheticEvent } from "react";
 import comicService from "../../services/comicService";
+import axios from "axios";
 const MathQuestions = ({
   setKey,
   comicName,
@@ -16,39 +17,51 @@ const MathQuestions = ({
 }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<string[]>([""]);
-  // Vastaukset backendiin bodyssa, listana stringeja.
 
-  // Voisin tehdä Questions-tyypin sittenkin sellaiseksi frontissa että answer on vapaaehtoinen.
-  // Sitten voisin vaan kattoa että jos answer on, se tarkoittaa että on jo vastattu oikein,
-  // joten vastausta ei enää lähetetä backiin.
-  // Jos ei ole vastausta, lähetellään tavaraa backiin.
   useEffect(() => {
-    console.log(comic[page]);
+    let newQuestions: Question[] = [];
     if (comic[page].questionList) {
-      let newQuestions: Question[] = [];
-      for (let q = 0; q < comic[page].questionList.length; q++) {
+      const l = comic[page].questionList.length;
+      for (let q = 0; q < l; q++) {
         const question = comic[page].questionList[q];
         newQuestions = [...newQuestions, question];
       }
       setQuestions(newQuestions);
+      setAnswers(new Array(l).fill(""));
+    } else {
+      setQuestions(newQuestions);
     }
-  }, [page]);
+  }, [page, comic]);
 
   const handleAnswer = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (
       comic[page].questionList &&
       comic[page].questionList[0].question &&
-      !comic[page].questionList[0].answer
+      !comic[page].questionList[0].answer &&
+      thereAreAnswers()
     ) {
-      const key = await comicService.postAnswers(comicName, page, answers);
-      setKey(key);
-      // await comicService
-      //   .getPages(comicName, key)
-      //   .then((data) => setKey(data));
+      try {
+        const key = await comicService.postAnswers(comicName, page, answers);
+        setKey(key);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.log(error.status);
+          console.log(error.response);
+        } else {
+          console.error(error);
+        }
+      }
     }
-    // hae vaan oikealla vastauksella uusi key ja sillä uudet sivut. Ei tarvi openedPagea mihinkään.
-    else return;
+    return;
+  };
+
+  const thereAreAnswers = (): boolean => {
+    let isAnswers = true;
+    for (let i = 0; i < answers.length; i++) {
+      if (answers[i].length <= 0) isAnswers = false;
+    }
+    return isAnswers;
   };
 
   const changeValues = (
@@ -60,6 +73,7 @@ const MathQuestions = ({
     setAnswers(newValues);
   };
 
+  if (!comic[page].questionList) return;
   return (
     <form onSubmit={(e) => handleAnswer(e)}>
       {questions.map((q, i) => {
