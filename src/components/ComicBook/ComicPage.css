@@ -36,14 +36,12 @@
 }
 .comic-page-in-list {
   width: 90%;
-  height: auto;
   margin: 2px;
   background-color: #5f5f5f;
   min-height: 150px;
 }
 .shadow {
   box-shadow: 1rem 1rem 2rem black;
-  /* box-shadow: 0 0 1rem grey; */
 }
 
 .comic-page-in-list:hover {
@@ -51,11 +49,9 @@
 }
 
 .list-element-for-pages {
-  width: 25%;
+  width: 120px;
   padding-top: 3px;
   text-align: center;
-  min-width: 70px;
-  max-width: 120px;
   cursor: pointer;
   filter: brightness(50%);
   margin: 3px;
@@ -161,4 +157,14 @@
 
 .question {
   margin: 0.5rem;
+}
+
+@media (max-width: 390px) {
+  .comic-page-in-list {
+    min-height: 125px;
+  }
+
+  .list-element-for-pages {
+    width: 100px;
+  }
 }
