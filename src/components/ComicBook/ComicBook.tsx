@@ -29,7 +29,6 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
       }
     };
     getPages(comicName, stateKey);
-    console.log(stateKey);
     const element = document.getElementById(page.toString());
     element?.scrollIntoView({ block: "center" });
     function keyDownHandler(e: globalThis.KeyboardEvent) {

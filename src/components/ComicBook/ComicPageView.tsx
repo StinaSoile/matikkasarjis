@@ -127,8 +127,8 @@ const ComicPageView = ({
                 stateKey={stateKey}
                 setKey={setKey}
                 comicName={comicName}
-                page={page}
-                comic={comic}
+                pageNumber={page}
+                comicPage={comic[page]}
               />
             </Stack>
           </div>

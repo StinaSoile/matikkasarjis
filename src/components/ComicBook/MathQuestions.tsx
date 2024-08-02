@@ -7,51 +7,41 @@ const MathQuestions = ({
   stateKey,
   setKey,
   comicName,
-  comic,
-  page,
+  comicPage,
+  pageNumber,
 }: {
   stateKey: string | undefined;
   setKey: React.Dispatch<React.SetStateAction<string | undefined>>;
   comicName: string;
-  comic: Page[];
-  page: number;
+  comicPage: Page;
+  pageNumber: number;
 }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<string[]>([""]);
   const [buttonClasses, setButtonClasses] = useState("answer-button");
 
   useEffect(() => {
-    let newQuestions: Question[] = [];
-    if (comic[page].questionList) {
-      const l = comic[page].questionList.length;
-      for (let q = 0; q < l; q++) {
-        const question = comic[page].questionList[q];
-        newQuestions = [...newQuestions, question];
-      }
-      setQuestions(newQuestions);
-      setAnswers(new Array(l).fill(""));
+    if (comicPage.questionList) {
+      setQuestions(comicPage.questionList.map((q) => q));
+      setAnswers(new Array(comicPage.questionList.length).fill(""));
     } else {
-      setQuestions(newQuestions);
+      setQuestions([]);
     }
-  }, [page, comic]);
+  }, [comicPage]);
 
   const handleAnswer = async (e: SyntheticEvent) => {
     e.preventDefault();
-    if (
-      comic[page].questionList &&
-      comic[page].questionList[0].question &&
-      !comic[page].questionList[0].answer &&
-      thereAreAnswers()
-    ) {
+    if (comicPage.questionList && thereAreNewAnswers(comicPage)) {
       const trimmedAnswers = answers.map((a) => a.trim());
       try {
         const key = await comicService.postAnswers(
           comicName,
-          page,
+          pageNumber,
           trimmedAnswers
         );
         if (stateKey != key) {
           flashGreen();
+          setAnswers(new Array(comicPage.questionList.length).fill(""));
           setKey(key);
         } else {
           flashRed();
@@ -68,26 +58,32 @@ const MathQuestions = ({
     return;
   };
 
-  const thereAreAnswers = (): boolean => {
-    let isAnswers = true;
+  const thereAreNewAnswers = (comicPage: Page): boolean => {
+    let isNewAnswers = false;
+    if (
+      comicPage.questionList &&
+      comicPage.questionList[0].question &&
+      !comicPage.questionList[0].answer
+    )
+      isNewAnswers = true;
     for (let i = 0; i < answers.length; i++) {
-      if (answers[i].length <= 0) isAnswers = false;
+      if (answers[i].length <= 0) isNewAnswers = false;
     }
-    return isAnswers;
+    return isNewAnswers;
   };
 
   const flashRed = () => {
     setButtonClasses("answer-button wrong-answer");
     setTimeout(() => {
       setButtonClasses("answer-button");
-    }, 500);
+    }, 1000);
   };
 
   const flashGreen = () => {
     setButtonClasses("answer-button right-answer");
     setTimeout(() => {
       setButtonClasses("answer-button");
-    }, 500);
+    }, 1000);
   };
 
   const changeValues = (
@@ -99,7 +95,7 @@ const MathQuestions = ({
     setAnswers(newValues);
   };
 
-  if (!comic[page].questionList) return;
+  if (!comicPage.questionList) return;
   return (
     <form className="questionform" onSubmit={(e) => handleAnswer(e)}>
       <div className="all-questions-container">
@@ -128,11 +124,7 @@ const MathQuestions = ({
           );
         })}
       </div>
-      <button
-        className={buttonClasses}
-        // variant="contained"
-        type="submit"
-      >
+      <button className={buttonClasses} type="submit">
         &gt;
       </button>
     </form>
