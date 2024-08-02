@@ -1,15 +1,16 @@
-import { Button } from "@mui/material";
 import { Page, Question } from "../../types";
 import { useEffect, useState } from "react";
 import { SyntheticEvent } from "react";
 import comicService from "../../services/comicService";
 import axios from "axios";
 const MathQuestions = ({
+  stateKey,
   setKey,
   comicName,
   comic,
   page,
 }: {
+  stateKey: string | undefined;
   setKey: React.Dispatch<React.SetStateAction<string | undefined>>;
   comicName: string;
   comic: Page[];
@@ -17,6 +18,7 @@ const MathQuestions = ({
 }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<string[]>([""]);
+  const [buttonClasses, setButtonClasses] = useState("answer-button");
 
   useEffect(() => {
     let newQuestions: Question[] = [];
@@ -43,7 +45,12 @@ const MathQuestions = ({
     ) {
       try {
         const key = await comicService.postAnswers(comicName, page, answers);
-        setKey(key);
+        if (stateKey != key) {
+          flashGreen();
+          setKey(key);
+        } else {
+          flashRed();
+        }
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.log(error.status);
@@ -64,6 +71,20 @@ const MathQuestions = ({
     return isAnswers;
   };
 
+  const flashRed = () => {
+    setButtonClasses("answer-button wrong-answer");
+    setTimeout(() => {
+      setButtonClasses("answer-button");
+    }, 500);
+  };
+
+  const flashGreen = () => {
+    setButtonClasses("answer-button right-answer");
+    setTimeout(() => {
+      setButtonClasses("answer-button");
+    }, 500);
+  };
+
   const changeValues = (
     target: React.ChangeEvent<HTMLInputElement>,
     i: number
@@ -75,32 +96,40 @@ const MathQuestions = ({
 
   if (!comic[page].questionList) return;
   return (
-    <form onSubmit={(e) => handleAnswer(e)}>
-      {questions.map((q, i) => {
-        return (
-          <div
-            key={i}
-            style={{
-              color: "white",
-              textAlign: "center",
-            }}
-          >
-            <div>{q.question}</div>
+    <form className="questionform" onSubmit={(e) => handleAnswer(e)}>
+      <div className="all-questions-container">
+        {questions.map((q, i) => {
+          return (
+            <div
+              className="question-container"
+              key={i}
+              style={{
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              <div className="question">{q.question}</div>
 
-            <label>
-              <input
-                value={answers[i]}
-                type="text"
-                name="name"
-                onChange={(target) => changeValues(target, i)}
-              />
-            </label>
-          </div>
-        );
-      })}
-      <Button variant="contained" type="submit" color="primary">
-        Arvaa
-      </Button>
+              <label className="answer-field">
+                <input
+                  className="answer-input"
+                  value={answers[i]}
+                  type="text"
+                  name="name"
+                  onChange={(target) => changeValues(target, i)}
+                />
+              </label>
+            </div>
+          );
+        })}
+      </div>
+      <button
+        className={buttonClasses}
+        // variant="contained"
+        type="submit"
+      >
+        &gt;
+      </button>
     </form>
   );
 };

@@ -14,7 +14,7 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [comic, setComic] = useState<Page[]>([]);
-  const [key, setKey] = useState<string | undefined>(undefined);
+  const [stateKey, setKey] = useState<string | undefined>(undefined);
   useEffect(() => {
     const getPages = async (comicName: string, key: string | undefined) => {
       try {
@@ -28,8 +28,8 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
         }
       }
     };
-    getPages(comicName, key);
-    console.log(key);
+    getPages(comicName, stateKey);
+    console.log(stateKey);
     const element = document.getElementById(page.toString());
     element?.scrollIntoView({ block: "center" });
     function keyDownHandler(e: globalThis.KeyboardEvent) {
@@ -52,7 +52,7 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
     return () => {
       document.removeEventListener("keydown", keyDownHandler);
     };
-  }, [page, key]);
+  }, [page, stateKey]);
 
   const renderComicPageModal = (p: number) => {
     setPage(p);
@@ -117,6 +117,7 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
         handleDecrement={handleDecrement}
         handleIncrement={handleIncrement}
         setKey={setKey}
+        stateKey={stateKey}
       />
     </>
   );
