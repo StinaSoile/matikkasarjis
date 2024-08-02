@@ -43,8 +43,13 @@ const MathQuestions = ({
       !comic[page].questionList[0].answer &&
       thereAreAnswers()
     ) {
+      const trimmedAnswers = answers.map((a) => a.trim());
       try {
-        const key = await comicService.postAnswers(comicName, page, answers);
+        const key = await comicService.postAnswers(
+          comicName,
+          page,
+          trimmedAnswers
+        );
         if (stateKey != key) {
           flashGreen();
           setKey(key);
