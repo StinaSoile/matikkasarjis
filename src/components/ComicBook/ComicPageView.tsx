@@ -2,8 +2,6 @@ import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./ComicPage.css";
 import { Dialog, Stack } from "@mui/material";
-import { useCallback } from "react";
-import MobileSwiper from "./MobileSwiper";
 import { Page } from "../../types";
 import { apiBaseUrl } from "../../constants";
 import MathQuestions from "./MathQuestions";
@@ -31,27 +29,6 @@ const ComicPageView = ({
 }) => {
   const allPages = comic.length;
 
-  const handleSwipe = useCallback(
-    ({ deltaX, deltaY }: { deltaX: number; deltaY: number }) => {
-      if (Math.abs(deltaX) > 4 && Math.abs(deltaY) > 4) {
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-          if (deltaX > 0) {
-            handleDecrement();
-          } else {
-            handleIncrement();
-          }
-        } else {
-          if (deltaY > 0) {
-            handleDecrement();
-          } else {
-            handleIncrement();
-          }
-        }
-      }
-    },
-    [handleDecrement, handleIncrement]
-  );
-
   const renderComicPage = (pageArray: Page[], page: number) => {
     const allPages = pageArray.length;
 
@@ -60,13 +37,11 @@ const ComicPageView = ({
       const imageSrc = `${apiBaseUrl}/images/${comicName}/${comicPage}`;
 
       return (
-        <MobileSwiper onSwipe={handleSwipe}>
-          <img
-            src={imageSrc}
-            alt="Sarjakuvasivu"
-            className="comicpage-in-modal shadow"
-          />
-        </MobileSwiper>
+        <img
+          src={imageSrc}
+          alt="Sarjakuvasivu"
+          className="comicpage-in-modal shadow"
+        />
       );
     }
     return <></>;
