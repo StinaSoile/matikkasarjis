@@ -37,11 +37,13 @@ const ComicPageView = ({
       const imageSrc = `${apiBaseUrl}/images/${comicName}/${comicPage}`;
 
       return (
-        <img
-          src={imageSrc}
-          alt="Sarjakuvasivu"
-          className="comicpage-in-modal shadow"
-        />
+        <div>
+          <img
+            src={imageSrc}
+            alt="Sarjakuvasivu"
+            className="comicpage-in-modal shadow"
+          />
+        </div>
       );
     }
     return <></>;
