@@ -7,11 +7,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Palvelee staattisia tiedostoja dist-hakemistosta
-app.use(express.static(path.join('dist')));
+app.use(express.static(path.resolve('dist')));
 
 // Palvelee index.html kunnes määritetään
 app.get('*', (req, res) => {
-    res.sendFile(path.join('dist', 'index.html'));
+    res.sendFile(path.resolve('dist', 'index.html'));
 });
 
 app.listen(port, () => {
