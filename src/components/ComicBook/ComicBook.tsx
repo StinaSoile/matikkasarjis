@@ -2,7 +2,7 @@ import "./ComicPage.css";
 
 import { Link } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ComicPageView from "./ComicPageView";
 import { IconButton } from "@mui/material";
 import comicService from "../../services/comicService";
@@ -11,6 +11,9 @@ import { apiBaseUrl } from "../../constants";
 import axios from "axios";
 
 const ComicBook = ({ comicName }: { comicName: string }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const selectedImageRef = useRef<HTMLDivElement>(null);
+
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [comic, setComic] = useState<Page[]>([]);
@@ -18,7 +21,8 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
   useEffect(() => {
     const getPages = async (comicName: string, key: string | undefined) => {
       try {
-        comicService.getPages(comicName, key).then((data) => setComic(data));
+        const data = await comicService.getPages(comicName, key);
+        setComic(data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.log(error.status);
@@ -31,41 +35,56 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
     getPages(comicName, stateKey);
     const element = document.getElementById(page.toString());
     element?.scrollIntoView({ block: "center" });
-    function keyDownHandler(e: globalThis.KeyboardEvent) {
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-        e.preventDefault();
-        handleIncrement();
-      }
-      if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-        e.preventDefault();
-        handleDecrement();
-      }
-      if (e.key === "Enter") {
-        e.preventDefault();
-        renderComicPageModal(page);
-      }
-    }
 
     document.addEventListener("keydown", keyDownHandler);
 
     return () => {
       document.removeEventListener("keydown", keyDownHandler);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, stateKey]);
+
+  const keyDownHandler = (e: globalThis.KeyboardEvent) => {
+    e.preventDefault();
+    let maxElementsOnRow = 1;
+    if (containerRef.current && selectedImageRef.current) {
+      maxElementsOnRow = Math.floor(
+        containerRef.current.offsetWidth / selectedImageRef.current?.offsetWidth
+      )
+    }
+
+    switch (e.key) {
+      case "ArrowUp":
+        handleDecrement(maxElementsOnRow);
+        break;
+      case "ArrowDown":
+        handleIncrement(maxElementsOnRow);
+        break;
+      case "ArrowRight":
+        handleIncrement();
+        break;
+      case "ArrowLeft":
+        handleDecrement();
+        break;
+      case "Enter":
+        renderComicPageModal(page);
+        break;
+    }
+  }
 
   const renderComicPageModal = (p: number) => {
     setPage(p);
     setOpen(true);
   };
 
-  const handleIncrement = () => {
-    const newPageNumber = page + 1;
+  const handleIncrement = (num = 1) => {
+    const newPageNumber = page + num;
     if (newPageNumber >= 0 && newPageNumber < comic.length) {
       setPage(newPageNumber);
     }
   };
-  const handleDecrement = () => {
-    const newPageNumber = page - 1;
+  const handleDecrement = (num = 1) => {
+    const newPageNumber = page - num;
     if (newPageNumber >= 0 && newPageNumber < comic.length) {
       setPage(newPageNumber);
     }
@@ -82,16 +101,13 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
           />
         </Link>
       </IconButton>
-      <div className="list-container">
+      <div className="list-container" ref={containerRef}>
         {comic.map((item, i) => {
           const imageSrc = `${apiBaseUrl}/images/${comicName}/${item.pictureName}`;
-          let classname = "list-element-for-pages";
-          if (page === i) {
-            classname = "list-element-for-pages focused";
-          }
-
+          const classname = `list-element-for-pages ${page === i ? 'focused' : ''}`;
           return (
             <div
+              ref={page === i ? selectedImageRef : null}
               key={item.pictureName}
               id={i.toString()}
               className={classname}
