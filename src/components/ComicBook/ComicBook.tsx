@@ -45,7 +45,6 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
   }, [page, stateKey]);
 
   const keyDownHandler = (e: globalThis.KeyboardEvent) => {
-    e.preventDefault();
     let maxElementsOnRow = 1;
     if (containerRef.current && selectedImageRef.current) {
       maxElementsOnRow = Math.floor(
