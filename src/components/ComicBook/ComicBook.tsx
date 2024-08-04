@@ -19,7 +19,9 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
   const [comic, setComic] = useState<Page[]>([]);
   const [stateKey, setKey] = useState<string | undefined>(undefined);
   useEffect(() => {
+    const keyFromStorage = getKeyFromLocalStorage();
     const getPages = async (comicName: string, key: string | undefined) => {
+      // tämä pois useEffectist?
       try {
         const data = await comicService.getPages(comicName, key);
         setComic(data);
@@ -32,7 +34,8 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
         }
       }
     };
-    getPages(comicName, stateKey);
+    getPages(comicName, keyFromStorage);
+
     const element = document.getElementById(page.toString());
     element?.scrollIntoView({ block: "center" });
 
@@ -49,7 +52,7 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
     if (containerRef.current && selectedImageRef.current) {
       maxElementsOnRow = Math.floor(
         containerRef.current.offsetWidth / selectedImageRef.current?.offsetWidth
-      )
+      );
     }
 
     switch (e.key) {
@@ -69,7 +72,7 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
         renderComicPageModal(page);
         break;
     }
-  }
+  };
 
   const renderComicPageModal = (p: number) => {
     setPage(p);
@@ -89,6 +92,20 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
     }
   };
 
+  const getKeyFromLocalStorage = () => {
+    const newKey = window.localStorage.getItem(comicName);
+    if (newKey) {
+      setKey(newKey);
+      return newKey;
+    }
+    return undefined;
+  };
+
+  const changeKey = (key: string) => {
+    setKey(key);
+    window.localStorage.setItem(comicName, key);
+  };
+
   return (
     <>
       <IconButton style={{ minWidth: "3rem", minHeight: "3rem", zIndex: 1000 }}>
@@ -103,7 +120,9 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
       <div className="list-container" ref={containerRef}>
         {comic.map((item, i) => {
           const imageSrc = `${apiBaseUrl}/images/${comicName}/${item.pictureName}`;
-          const classname = `list-element-for-pages ${page === i ? 'focused' : ''}`;
+          const classname = `list-element-for-pages ${
+            page === i ? "focused" : ""
+          }`;
           return (
             <div
               ref={page === i ? selectedImageRef : null}
@@ -130,7 +149,7 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
         open={open}
         handleDecrement={handleDecrement}
         handleIncrement={handleIncrement}
-        setKey={setKey}
+        changeKey={changeKey}
         stateKey={stateKey}
       />
     </>

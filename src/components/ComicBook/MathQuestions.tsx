@@ -5,13 +5,13 @@ import comicService from "../../services/comicService";
 import axios from "axios";
 const MathQuestions = ({
   stateKey,
-  setKey,
+  changeKey,
   comicName,
   comicPage,
   pageNumber,
 }: {
   stateKey: string | undefined;
-  setKey: React.Dispatch<React.SetStateAction<string | undefined>>;
+  changeKey: (key: string) => void;
   comicName: string;
   comicPage: Page;
   pageNumber: number;
@@ -42,7 +42,7 @@ const MathQuestions = ({
         if (stateKey != key) {
           flashGreen();
           setAnswers(new Array(comicPage.questionList.length).fill(""));
-          setKey(key);
+          changeKey(key);
         } else {
           flashRed();
         }
