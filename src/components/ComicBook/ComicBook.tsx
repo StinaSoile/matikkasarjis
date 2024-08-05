@@ -17,23 +17,9 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [comic, setComic] = useState<Page[]>([]);
-  const [stateKey, setKey] = useState<string | undefined>(undefined);
+  const [progressKey, setProgressKey] = useState<string | undefined>(undefined);
   useEffect(() => {
     const keyFromStorage = getKeyFromLocalStorage();
-    const getPages = async (comicName: string, key: string | undefined) => {
-      // tämä pois useEffectist?
-      try {
-        const data = await comicService.getPages(comicName, key);
-        setComic(data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.log(error.status);
-          console.log(error.response);
-        } else {
-          console.error(error);
-        }
-      }
-    };
     getPages(comicName, keyFromStorage);
 
     const element = document.getElementById(page.toString());
@@ -45,7 +31,21 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
       document.removeEventListener("keydown", keyDownHandler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, stateKey]);
+  }, [page, progressKey]);
+
+  const getPages = async (comicName: string, key: string | undefined) => {
+    try {
+      const data = await comicService.getPages(comicName, key);
+      setComic(data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.status);
+        console.log(error.response);
+      } else {
+        console.error(error);
+      }
+    }
+  };
 
   const keyDownHandler = (e: globalThis.KeyboardEvent) => {
     let maxElementsOnRow = 1;
@@ -95,14 +95,14 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
   const getKeyFromLocalStorage = () => {
     const newKey = window.localStorage.getItem(comicName);
     if (newKey) {
-      setKey(newKey);
+      setProgressKey(newKey);
       return newKey;
     }
     return undefined;
   };
 
   const changeKey = (key: string) => {
-    setKey(key);
+    setProgressKey(key);
     window.localStorage.setItem(comicName, key);
   };
 
@@ -150,7 +150,7 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
         handleDecrement={handleDecrement}
         handleIncrement={handleIncrement}
         changeKey={changeKey}
-        stateKey={stateKey}
+        progressKey={progressKey}
       />
     </>
   );
