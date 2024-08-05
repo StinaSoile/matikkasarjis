@@ -15,7 +15,7 @@ const ComicPageView = ({
   handleDecrement,
   handleIncrement,
   changeKey,
-  stateKey,
+  progressKey,
 }: {
   comicName: string;
   comic: Page[];
@@ -25,7 +25,7 @@ const ComicPageView = ({
   handleDecrement: () => void;
   handleIncrement: () => void;
   changeKey: (key: string) => void;
-  stateKey: string | undefined;
+  progressKey: string | undefined;
 }) => {
   const allPages = comic.length;
 
@@ -101,7 +101,7 @@ const ComicPageView = ({
                 )}
               </Stack>
               <MathQuestions
-                stateKey={stateKey}
+                progressKey={progressKey}
                 changeKey={changeKey}
                 comicName={comicName}
                 pageNumber={page}

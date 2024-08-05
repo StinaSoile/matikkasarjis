@@ -4,13 +4,13 @@ import { SyntheticEvent } from "react";
 import comicService from "../../services/comicService";
 import axios from "axios";
 const MathQuestions = ({
-  stateKey,
+  progressKey,
   changeKey,
   comicName,
   comicPage,
   pageNumber,
 }: {
-  stateKey: string | undefined;
+  progressKey: string | undefined;
   changeKey: (key: string) => void;
   comicName: string;
   comicPage: Page;
@@ -39,7 +39,7 @@ const MathQuestions = ({
           pageNumber,
           trimmedAnswers
         );
-        if (stateKey != key) {
+        if (progressKey != key) {
           flashGreen();
           setAnswers(new Array(comicPage.questionList.length).fill(""));
           changeKey(key);
