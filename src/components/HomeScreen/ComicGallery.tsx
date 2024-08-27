@@ -58,7 +58,7 @@ const ComicGallery = () => {
 
   useEffect(() => {
     getComicFrontPages();
-  }, []);
+  });
 
   return (
     <div className="list-container center">
