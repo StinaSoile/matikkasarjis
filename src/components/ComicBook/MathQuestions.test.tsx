@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { render, screen, fireEvent } from "@testing-library/react";
 import MathQuestions from "./MathQuestions";
-import { expect, test, describe } from "vitest";
+import comicService from "../../services/comicService";
+import { vi } from "vitest";
+
+// Mockataan comicService
+vi.mock("../../services/comicService");
+
+const mockPostAnswers = comicService.postAnswers as jest.Mock<Promise<string>>;
 
 describe("<MathQuestions /> when comic page has questions", () => {
   test("should render given questions", () => {
@@ -16,18 +22,9 @@ describe("<MathQuestions /> when comic page has questions", () => {
           key: "key",
           pictureName: "picture",
           questionList: [
-            {
-              question: "Kysymys1",
-              answer: "vastaus",
-            },
-            {
-              question: "Kysymys2",
-              answer: "vastaus",
-            },
-            {
-              question: "Kysymys3",
-              answer: "vastaus",
-            },
+            { question: "Kysymys1", answer: "" },
+            { question: "Kysymys2", answer: "" },
+            { question: "Kysymys3", answer: "" },
           ],
         }}
         pageNumber={0}
@@ -52,18 +49,9 @@ describe("<MathQuestions /> when comic page has questions", () => {
           key: "key",
           pictureName: "picture",
           questionList: [
-            {
-              question: "Kysymys1",
-              answer: "vastaus",
-            },
-            {
-              question: "Kysymys2",
-              answer: "vastaus",
-            },
-            {
-              question: "Kysymys3",
-              answer: "vastaus",
-            },
+            { question: "Kysymys1", answer: "" },
+            { question: "Kysymys2", answer: "" },
+            { question: "Kysymys3", answer: "" },
           ],
         }}
         pageNumber={0}
@@ -84,18 +72,9 @@ describe("<MathQuestions /> when comic page has questions", () => {
           key: "key",
           pictureName: "picture",
           questionList: [
-            {
-              question: "Kysymys1",
-              answer: "vastaus",
-            },
-            {
-              question: "Kysymys2",
-              answer: "vastaus",
-            },
-            {
-              question: "Kysymys3",
-              answer: "vastaus",
-            },
+            { question: "Kysymys1", answer: "" },
+            { question: "Kysymys2", answer: "" },
+            { question: "Kysymys3", answer: "" },
           ],
         }}
         pageNumber={0}
@@ -108,6 +87,136 @@ describe("<MathQuestions /> when comic page has questions", () => {
     expect(allAnswerBoxes[0].value).toBe("Answer1");
     expect(allAnswerBoxes[1].value).toBe("Answer2");
     expect(allAnswerBoxes[2].value).toBe("Answer3");
+  });
+  test("handleAnswer should not call comicService if all textboxes have no answer", async () => {
+    // Mockataan postAnswers-metodi palauttamaan avain
+
+    const changeKey = vi.fn();
+    render(
+      <MathQuestions
+        progressKey="old-key"
+        changeKey={changeKey}
+        comicName="test-comic"
+        comicPage={{
+          key: "key",
+          pictureName: "picture",
+          questionList: [
+            { question: "Kysymys1", answer: "" },
+            { question: "Kysymys2", answer: "" },
+            { question: "Kysymys3", answer: "" },
+          ],
+        }}
+        pageNumber={0}
+      />
+    );
+
+    const allAnswerBoxes = screen.getAllByRole("textbox") as HTMLInputElement[];
+    fireEvent.change(allAnswerBoxes[0], { target: { value: "New Answer" } });
+
+    const button = screen.getByRole("button");
+    fireEvent.submit(button);
+
+    expect(mockPostAnswers).not.toHaveBeenCalledWith("test-comic", 0, [
+      "New Answer",
+      "",
+      "",
+    ]);
+
+    await screen.findAllByRole("textbox");
+
+    expect(changeKey).not.toHaveBeenCalledWith("new-key");
+    expect(allAnswerBoxes[0].value).toBe("New Answer");
+    expect(allAnswerBoxes[1].value).toBe("");
+    expect(allAnswerBoxes[2].value).toBe("");
+  });
+  test("handleAnswer should call comicService and because comicService gives a new key, call changeKey and empty textboxes", async () => {
+    // Mockataan postAnswers-metodi palauttamaan avain
+    mockPostAnswers.mockResolvedValueOnce("new-key");
+
+    const changeKey = vi.fn();
+    render(
+      <MathQuestions
+        progressKey="old-key"
+        changeKey={changeKey}
+        comicName="test-comic"
+        comicPage={{
+          key: "key",
+          pictureName: "picture",
+          questionList: [
+            { question: "Kysymys1", answer: "" },
+            { question: "Kysymys2", answer: "" },
+            { question: "Kysymys3", answer: "" },
+          ],
+        }}
+        pageNumber={0}
+      />
+    );
+
+    const allAnswerBoxes = screen.getAllByRole("textbox") as HTMLInputElement[];
+    fireEvent.change(allAnswerBoxes[0], { target: { value: "New Answer" } });
+    fireEvent.change(allAnswerBoxes[1], { target: { value: "New Answer" } });
+    fireEvent.change(allAnswerBoxes[2], { target: { value: "New Answer" } });
+
+    const button = screen.getByRole("button");
+    fireEvent.submit(button);
+
+    expect(mockPostAnswers).toHaveBeenCalledWith("test-comic", 0, [
+      "New Answer",
+      "New Answer",
+      "New Answer",
+    ]);
+
+    await screen.findAllByRole("textbox");
+
+    expect(allAnswerBoxes[0].value).toBe("");
+    expect(allAnswerBoxes[1].value).toBe("");
+    expect(allAnswerBoxes[2].value).toBe("");
+    expect(changeKey).toHaveBeenCalledWith("new-key");
+  });
+  test("handleAnswer should call comicService that gives an old key, hence no changeKey is called or textboxes emptied", async () => {
+    mockPostAnswers.mockResolvedValueOnce("some-key");
+
+    const changeKey = vi.fn();
+    render(
+      <MathQuestions
+        progressKey="some-key"
+        changeKey={changeKey}
+        comicName="test-comic"
+        comicPage={{
+          key: "key",
+          pictureName: "picture",
+          questionList: [
+            { question: "Kysymys1", answer: "" },
+            { question: "Kysymys2", answer: "" },
+            { question: "Kysymys3", answer: "" },
+          ],
+        }}
+        pageNumber={0}
+      />
+    );
+
+    const allAnswerBoxes = screen.getAllByRole("textbox") as HTMLInputElement[];
+    fireEvent.change(allAnswerBoxes[0], { target: { value: "New Answer" } });
+    fireEvent.change(allAnswerBoxes[1], { target: { value: "New Answer" } });
+    fireEvent.change(allAnswerBoxes[2], { target: { value: "New Answer" } });
+
+    const button = screen.getByRole("button");
+    fireEvent.submit(button);
+
+    expect(mockPostAnswers).toHaveBeenCalledWith("test-comic", 0, [
+      "New Answer",
+      "New Answer",
+      "New Answer",
+    ]);
+
+    await screen.findByRole("button");
+    if (changeKey.mock.calls.length > 0) {
+      console.log("changeKey called with:", changeKey.mock.calls[0][0]);
+    }
+    expect(changeKey).not.toHaveBeenCalled();
+    expect(allAnswerBoxes[0].value).toBe("New Answer");
+    expect(allAnswerBoxes[1].value).toBe("New Answer");
+    expect(allAnswerBoxes[2].value).toBe("New Answer");
   });
 });
 describe("<MathQuestions /> when comic page does not have questions", () => {
