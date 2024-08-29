@@ -8,3 +8,9 @@ export interface Question {
   question: string;
   answer?: string;
 }
+
+export interface Comic {
+  shortName: string;
+  name: string;
+  level: string;
+}
