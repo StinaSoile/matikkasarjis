@@ -7,45 +7,28 @@ import "../ComicBook/ComicPage.css";
 import axios from "axios";
 
 const ComicGallery = () => {
+  interface Info {
+    comicName: string;
+    frontPageImageSrc: string;
+    alt: string;
+    description: JSX.Element;
+  }
   const navigate = useNavigate();
 
-  const [comicInfo, setComicInfo] = useState([
-    {
-      comicName: "siivetonlepakko",
-      frontPageImageSrc: "",
-      alt: "Siivettömän lepakon matka -sarjakuva",
-      description: (
-        <div className="div-in-comicgallery">
-          <p>Siivettömän lepakon matka</p>
-          <p>4. luokka</p>
-        </div>
-      ),
-    },
-    {
-      comicName: "velhontaloudenhoitaja",
-      frontPageImageSrc: "",
-      alt: "Velhon taloudenhoitaja -sarjakuva",
-      description: (
-        <div className="div-in-comicgallery">
-          <div>Velhon taloudenhoitaja</div>
-          <div>Yläkoulun 8. luokka</div>
-        </div>
-      ),
-    },
-  ]);
+  const [comicInfo, setComicInfo] = useState<Info[]>([]);
 
-  const getComicFrontPages = async () => {
+  const setComicsWithFrontPages = async (info: Info[]) => {
     try {
-      Promise.all(
-        comicInfo.map((x) => comicService.getFrontPage(x.comicName))
-      ).then((values) => {
-        setComicInfo(
-          comicInfo.map((a, i) => ({
-            ...a,
-            frontPageImageSrc: `${apiBaseUrl}/images/${a.comicName}/${values[i]}`,
-          }))
-        );
-      });
+      Promise.all(info.map((x) => comicService.getFrontPage(x.comicName))).then(
+        (values) => {
+          setComicInfo(
+            info.map((a, i) => ({
+              ...a,
+              frontPageImageSrc: `${apiBaseUrl}/images/${a.comicName}/${values[i]}`,
+            }))
+          );
+        }
+      );
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.status);
@@ -56,8 +39,36 @@ const ComicGallery = () => {
     }
   };
 
+  const getComicInfo = async () => {
+    const info: Info[] = [];
+    try {
+      const data = await comicService.getComicInfo();
+      for (const comic of data) {
+        info.push({
+          comicName: comic.shortName,
+          frontPageImageSrc: "",
+          alt: comic.name,
+          description: (
+            <div className="div-in-comicgallery">
+              <p>{comic.name}</p>
+              <p>{comic.level}</p>
+            </div>
+          ),
+        });
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.status);
+        console.log(error.response);
+      } else {
+        console.error(error);
+      }
+    }
+    setComicsWithFrontPages(info);
+  };
+
   useEffect(() => {
-    getComicFrontPages();
+    getComicInfo();
   }, []);
 
   return (
