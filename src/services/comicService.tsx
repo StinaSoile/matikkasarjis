@@ -1,5 +1,6 @@
 import axios from "axios";
 import { apiBaseUrl } from "../constants";
+import { Comic } from "../types";
 
 const getFrontPage = async (comicName: string) => {
   const key = await axios.post(`${apiBaseUrl}/comics/${comicName}/0`);
@@ -32,9 +33,15 @@ const postAnswers = async (name: string, page: number, answers: string[]) => {
   return key.data as string;
 };
 
+const getComicInfo = async () => {
+  const data = await axios.get(`${apiBaseUrl}/comics/`);
+  return data.data as Comic[];
+};
+
 export default {
   getFrontPage,
   getPages,
   getPicture,
   postAnswers,
+  getComicInfo,
 };
