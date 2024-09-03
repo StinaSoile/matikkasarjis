@@ -109,7 +109,9 @@ const MathQuestions = ({
                 textAlign: "center",
               }}
             >
-              <div className="question">{q.question}</div>
+              <div role="question" className="question">
+                {q.question}
+              </div>
 
               <label className="answer-field">
                 <input

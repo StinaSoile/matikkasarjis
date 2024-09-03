@@ -117,7 +117,7 @@ export default function MenuComponent({
       <MenuItem onClick={handleOpenAbout}>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label="about-author-small"
           color="inherit"
         >
           <Face4Icon />
@@ -173,7 +173,7 @@ export default function MenuComponent({
             <MenuItem onClick={() => setOpenAbout(true)}>
               <IconButton
                 size="large"
-                aria-label="show 17 new notifications"
+                aria-label="about-author-big"
                 color="inherit"
               >
                 <Face4Icon />

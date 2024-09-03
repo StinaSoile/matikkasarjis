@@ -71,6 +71,7 @@ const ComicGallery = () => {
     getComicInfo();
   }, []);
 
+
   return (
     <div className="list-container center">
       {comicInfo.map((x) => {
