@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { render, screen, fireEvent } from "@testing-library/react";
 import MathQuestions from "./MathQuestions";
 import comicService from "../../services/comicService";
-import { vi } from "vitest";
+import { describe, test, expect, vi } from "vitest";
 
 // Mockataan comicService
 vi.mock("../../services/comicService");
 
-const mockPostAnswers = comicService.postAnswers as jest.Mock<Promise<string>>;
+const mockPostAnswers = comicService.postAnswers as ReturnType<typeof vi.fn>;
 
 const renderQuestions = (
   key: string,
