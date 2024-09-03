@@ -35,7 +35,6 @@ const postAnswers = async (name: string, page: number, answers: string[]) => {
 
 const getComicInfo = async () => {
   const data = await axios.get(`${apiBaseUrl}/comics/`);
-  console.log(data.data);
   return data.data as Comic[];
 };
 
