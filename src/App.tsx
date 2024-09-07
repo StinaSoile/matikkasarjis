@@ -4,6 +4,9 @@ import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
 import ComicBook from "./components/ComicBook/ComicBook";
+import { useEffect, useState } from "react";
+import comicService from "./services/comicService";
+import axios from "axios";
 
 const theme = createTheme({
   palette: {
@@ -14,7 +17,29 @@ const theme = createTheme({
 });
 
 function App() {
-  const comicNames = ["siivetonlepakko", "velhontaloudenhoitaja"];
+  const [comicNames, setComicNames] = useState<string[]>([]);
+
+  const getComicInfo = async () => {
+    const nameList = [];
+    try {
+      const data = await comicService.getComicInfo();
+      for (const comic of data) {
+        nameList.push(comic.shortName);
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.status);
+        console.log(error.response);
+      } else {
+        console.error(error);
+      }
+    }
+    setComicNames(nameList);
+  };
+
+  useEffect(() => {
+    getComicInfo();
+  });
   return (
     <ThemeProvider theme={theme}>
       <Router>
