@@ -104,31 +104,30 @@ const MathQuestions = ({
             <div
               className="question-container"
               key={i}
-              style={{
-                color: "white",
-                textAlign: "center",
-              }}
             >
-              <div role="question" className="question">
+              <div role="question" style={{ fontSize: '1.5rem' }}>
                 {q.question}
               </div>
-
-              <label className="answer-field">
-                <input
-                  className="answer-input"
-                  value={answers[i]}
-                  type="text"
-                  name="name"
-                  onChange={(target) => changeValues(target, i)}
-                />
-              </label>
+              <div>
+                <label>
+                  <input
+                    className="answer-input"
+                    autoComplete="off"
+                    value={answers[i]}
+                    type="text"
+                    name="name"
+                    onChange={(target) => changeValues(target, i)}
+                  />
+                  {i === questions.length - 1 ?
+                    <button className={buttonClasses} type="submit"> &gt; </button>
+                    : <span></span>
+                  }
+                </label>
+              </div>
             </div>
           );
         })}
       </div>
-      <button className={buttonClasses} type="submit">
-        &gt;
-      </button>
     </form>
   );
 };
