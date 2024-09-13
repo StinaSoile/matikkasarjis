@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     getComicInfo();
-  });
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <Router>
