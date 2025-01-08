@@ -39,12 +39,12 @@ const About = ({
       <DialogContent dividers>
         <Typography gutterBottom>
           Stina Palomäki on matikan ja fysiikan opettajaksi valmistunut
-          teini-ikäisiä ja lapsia kammoava introvertti, ja siksi hän tekee
-          mieluummin matikkasarjakuvia yhdistäen taideharrastuksensa
-          matematiikkaan kuin opettaa yläkoulussa. Näin hän luo illuusion että
-          hänen osaamisellaan olisi jotakin väliä yhteiskunnalle, vaikka
-          todellisuudessa hän on kolmekymppinen työtön joka vain jatkuvasti
-          keksii uusia tekosyitä opiskella lisää.
+          introvertti joka pelkää lapsia, ja siksi hän tekee mieluummin
+          matikkasarjakuvia yhdistäen taideharrastuksensa matematiikkaan kuin
+          opettaa yläkoulussa. Näin hän luo illuusion että hänen osaamisellaan
+          olisi jotakin väliä yhteiskunnalle ja koulutukselle ja kaikelle,
+          vaikka todellisuudessa hän vain opettelee koodailemaan jotta voisi
+          vaihtaa alaa.
         </Typography>
       </DialogContent>
     </Dialog>
