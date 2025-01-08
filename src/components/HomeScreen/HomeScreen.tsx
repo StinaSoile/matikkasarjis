@@ -19,9 +19,14 @@ const HomeScreen = () => {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const token = await userService.authenticateUser(username, password);
-    console.log(token);
-    // token?
+    const data = await userService.authenticateUser(username, password);
+    console.log(data); // {token, username, progress}
+    window.localStorage.setItem("username", data.username);
+    window.localStorage.setItem("progress", data.progress);
+    window.localStorage.setItem("token", data.token);
+
+    setUsername("");
+    setPassword("");
   };
   return (
     <div className="homescreen">
