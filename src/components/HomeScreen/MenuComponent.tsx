@@ -12,7 +12,7 @@ import Menu from "@mui/material/Menu";
 // import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Face4Icon from "@mui/icons-material/Face4";
-// import LoginIcon from "@mui/icons-material/Login";
+import LoginIcon from "@mui/icons-material/Login";
 
 // const Search = styled("div")(({ theme }) => ({
 //   position: "relative",
@@ -56,12 +56,12 @@ import Face4Icon from "@mui/icons-material/Face4";
 
 export default function MenuComponent({
   setOpenAbout,
+  setOpenLogin,
 }: // setOpenCreateAccount,
-// setOpenLogin,
 {
   setOpenAbout: React.Dispatch<React.SetStateAction<boolean>>;
   // setOpenCreateAccount: React.Dispatch<React.SetStateAction<boolean>>;
-  // setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -78,6 +78,11 @@ export default function MenuComponent({
 
   const handleOpenAbout = () => {
     setOpenAbout(true);
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleOpenLogin = () => {
+    setOpenLogin(true);
     setMobileMoreAnchorEl(null);
   };
 
@@ -98,13 +103,13 @@ export default function MenuComponent({
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem onClick={() => setOpenLogin(true)}>
+      <MenuItem onClick={handleOpenLogin}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <LoginIcon />
         </IconButton>
         <p>Sign in</p>
       </MenuItem>
-      <MenuItem onClick={() => setOpenCreateAccount(true)}>
+      {/* <MenuItem onClick={() => setOpenCreateAccount(true)}>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
@@ -150,7 +155,7 @@ export default function MenuComponent({
           </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {/* <MenuItem onClick={() => setOpenLogin(true)}>
+            <MenuItem onClick={() => setOpenLogin(true)}>
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
@@ -160,7 +165,7 @@ export default function MenuComponent({
               </IconButton>
               <p>Sign in</p>
             </MenuItem>
-            <MenuItem onClick={() => setOpenCreateAccount(true)}>
+            {/* <MenuItem onClick={() => setOpenCreateAccount(true)}>
               <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
