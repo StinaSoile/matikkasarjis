@@ -18,6 +18,7 @@ const theme = createTheme({
 
 function App() {
   const [comicNames, setComicNames] = useState<string[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const getComicInfo = async () => {
     const nameList = [];
@@ -37,9 +38,21 @@ function App() {
     setComicNames(nameList);
   };
 
+  const checkIfLoggedIn = () => {
+    const token = window.localStorage.getItem("token");
+    if (token) setIsLoggedIn(true);
+    else setIsLoggedIn(false);
+  };
+
   useEffect(() => {
     getComicInfo();
+    checkIfLoggedIn();
   }, []);
+
+  useEffect(() => {
+    console.log(isLoggedIn); // Tämä loggaa aina päivitetyn arvon
+  }, [isLoggedIn]);
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -48,7 +61,10 @@ function App() {
             path="/"
             element={
               <Stack justifyContent="center" alignItems="stretch">
-                <HomeScreen />
+                <HomeScreen
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                />
               </Stack>
             }
           />

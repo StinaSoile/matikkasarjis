@@ -57,11 +57,15 @@ import LoginIcon from "@mui/icons-material/Login";
 export default function MenuComponent({
   setOpenAbout,
   setOpenLogin,
+  isLoggedIn,
+  setIsLoggedIn,
 }: // setOpenCreateAccount,
 {
   setOpenAbout: React.Dispatch<React.SetStateAction<boolean>>;
   // setOpenCreateAccount: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -86,6 +90,14 @@ export default function MenuComponent({
     setMobileMoreAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("username");
+    window.localStorage.removeItem("progress");
+    setIsLoggedIn(false);
+    setMobileMoreAnchorEl(null);
+  };
+
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
@@ -103,12 +115,21 @@ export default function MenuComponent({
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleOpenLogin}>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <LoginIcon />
-        </IconButton>
-        <p>Sign in</p>
-      </MenuItem>
+      {isLoggedIn ? (
+        <MenuItem onClick={handleLogout}>
+          <IconButton size="large" aria-label="logout" color="inherit">
+            <LoginIcon />
+          </IconButton>
+          <p>Sign out</p>
+        </MenuItem>
+      ) : (
+        <MenuItem onClick={handleOpenLogin}>
+          <IconButton size="large" aria-label="login" color="inherit">
+            <LoginIcon />
+          </IconButton>
+          <p>Sign in</p>
+        </MenuItem>
+      )}
       {/* <MenuItem onClick={() => setOpenCreateAccount(true)}>
         <IconButton
           size="large"
@@ -155,16 +176,21 @@ export default function MenuComponent({
           </Search> */}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <MenuItem onClick={() => setOpenLogin(true)}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                <LoginIcon />
-              </IconButton>
-              <p>Sign in</p>
-            </MenuItem>
+            {isLoggedIn ? (
+              <MenuItem onClick={handleLogout}>
+                <IconButton size="large" aria-label="logout" color="inherit">
+                  <LoginIcon />
+                </IconButton>
+                <p>Sign out</p>
+              </MenuItem>
+            ) : (
+              <MenuItem onClick={() => setOpenLogin(true)}>
+                <IconButton size="large" aria-label="login" color="inherit">
+                  <LoginIcon />
+                </IconButton>
+                <p>Sign in</p>
+              </MenuItem>
+            )}
             {/* <MenuItem onClick={() => setOpenCreateAccount(true)}>
               <IconButton
                 size="large"

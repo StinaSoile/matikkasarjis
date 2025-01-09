@@ -8,7 +8,14 @@ import userService from "../../services/userService";
 
 import { apiBaseUrl } from "../../constants";
 
-const HomeScreen = () => {
+const HomeScreen = ({
+  isLoggedIn,
+  setIsLoggedIn,
+}: // setOpenCreateAccount,
+{
+  isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [openAbout, setOpenAbout] = useState(false);
   const [openCreateAccount, setOpenCreateAccount] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
@@ -27,10 +34,17 @@ const HomeScreen = () => {
 
     setUsername("");
     setPassword("");
+    setIsLoggedIn(true);
+    setOpenLogin(false);
   };
   return (
     <div className="homescreen">
-      <MenuComponent setOpenAbout={setOpenAbout} setOpenLogin={setOpenLogin} />
+      <MenuComponent
+        setOpenAbout={setOpenAbout}
+        setOpenLogin={setOpenLogin}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
 
       <About handleClose={() => setOpenAbout(false)} open={openAbout} />
       <CreateAccount
