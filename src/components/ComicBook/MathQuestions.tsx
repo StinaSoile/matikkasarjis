@@ -34,15 +34,15 @@ const MathQuestions = ({
     if (comicPage.questionList && thereAreNewAnswers(comicPage)) {
       const trimmedAnswers = answers.map((a) => a.trim());
       try {
-        const key = await comicService.postAnswers(
+        const newKey = await comicService.postAnswers(
           comicName,
           pageNumber,
           trimmedAnswers
         );
-        if (progressKey != key) {
+        if (progressKey != newKey) {
           flashGreen();
           setAnswers(new Array(comicPage.questionList.length).fill(""));
-          changeKey(key);
+          changeKey(newKey);
         } else {
           flashRed();
         }
@@ -101,11 +101,8 @@ const MathQuestions = ({
       <div className="all-questions-container">
         {questions.map((q, i) => {
           return (
-            <div
-              className="question-container"
-              key={i}
-            >
-              <div role="question" style={{ fontSize: '1.5rem' }}>
+            <div className="question-container" key={i}>
+              <div role="question" style={{ fontSize: "1.5rem" }}>
                 {q.question}
               </div>
               <div>
@@ -118,10 +115,14 @@ const MathQuestions = ({
                     name="name"
                     onChange={(target) => changeValues(target, i)}
                   />
-                  {i === questions.length - 1 ?
-                    <button className={buttonClasses} type="submit"> &gt; </button>
-                    : <span></span>
-                  }
+                  {i === questions.length - 1 ? (
+                    <button className={buttonClasses} type="submit">
+                      {" "}
+                      &gt;{" "}
+                    </button>
+                  ) : (
+                    <span></span>
+                  )}
                 </label>
               </div>
             </div>

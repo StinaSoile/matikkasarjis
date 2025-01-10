@@ -6,9 +6,11 @@ import { useEffect, useRef, useState } from "react";
 import ComicPageView from "./ComicPageView";
 import { IconButton } from "@mui/material";
 import comicService from "../../services/comicService";
+import userService from "../../services/userService";
 import { Page } from "../../types";
 import { apiBaseUrl } from "../../constants";
 import axios from "axios";
+import utils from "../../utils";
 
 const ComicBook = ({ comicName }: { comicName: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -93,7 +95,16 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
   };
 
   const getKeyFromLocalStorage = () => {
-    const newKey = window.localStorage.getItem(comicName);
+    let newKey = "";
+    const progress = window.localStorage.getItem("progress");
+    if (progress) {
+      const parsedProgress = utils.parseAndValidateProgress(progress);
+      for (const item of parsedProgress) {
+        if (item.comic === comicName) {
+          newKey = item.key;
+        }
+      }
+    }
     if (newKey) {
       setProgressKey(newKey);
       return newKey;
@@ -101,9 +112,15 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
     return undefined;
   };
 
-  const changeKey = (key: string) => {
+  const changeKey = async (key: string) => {
     setProgressKey(key);
-    window.localStorage.setItem(comicName, key);
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      const data = await userService.saveProgress(comicName, key);
+      window.localStorage.setItem("username", data.username);
+      window.localStorage.setItem("progress", JSON.stringify(data.progress));
+      window.localStorage.setItem("token", data.token);
+    }
   };
 
   return (

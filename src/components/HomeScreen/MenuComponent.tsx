@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 // import SearchIcon from "@mui/icons-material/Search";
-// import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Face4Icon from "@mui/icons-material/Face4";
 import LoginIcon from "@mui/icons-material/Login";
@@ -59,13 +59,13 @@ export default function MenuComponent({
   setOpenLogin,
   isLoggedIn,
   setIsLoggedIn,
-}: // setOpenCreateAccount,
-{
+  setOpenCreateAccount,
+}: {
   setOpenAbout: React.Dispatch<React.SetStateAction<boolean>>;
-  // setOpenCreateAccount: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenCreateAccount: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -117,20 +117,20 @@ export default function MenuComponent({
     >
       {isLoggedIn ? (
         <MenuItem onClick={handleLogout}>
-          <IconButton size="large" aria-label="logout" color="inherit">
+          <IconButton size="large" aria-label="logout-small" color="inherit">
             <LoginIcon />
           </IconButton>
           <p>Sign out</p>
         </MenuItem>
       ) : (
         <MenuItem onClick={handleOpenLogin}>
-          <IconButton size="large" aria-label="login" color="inherit">
+          <IconButton size="large" aria-label="login-small" color="inherit">
             <LoginIcon />
           </IconButton>
           <p>Sign in</p>
         </MenuItem>
       )}
-      {/* <MenuItem onClick={() => setOpenCreateAccount(true)}>
+      <MenuItem onClick={() => setOpenCreateAccount(true)}>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
@@ -139,7 +139,7 @@ export default function MenuComponent({
           <PersonAddIcon />
         </IconButton>
         <p>Create account</p>
-      </MenuItem> */}
+      </MenuItem>
       <MenuItem onClick={handleOpenAbout}>
         <IconButton
           size="large"
@@ -178,20 +178,24 @@ export default function MenuComponent({
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {isLoggedIn ? (
               <MenuItem onClick={handleLogout}>
-                <IconButton size="large" aria-label="logout" color="inherit">
+                <IconButton
+                  size="large"
+                  aria-label="logout-big"
+                  color="inherit"
+                >
                   <LoginIcon />
                 </IconButton>
                 <p>Sign out</p>
               </MenuItem>
             ) : (
               <MenuItem onClick={() => setOpenLogin(true)}>
-                <IconButton size="large" aria-label="login" color="inherit">
+                <IconButton size="large" aria-label="login-big" color="inherit">
                   <LoginIcon />
                 </IconButton>
                 <p>Sign in</p>
               </MenuItem>
             )}
-            {/* <MenuItem onClick={() => setOpenCreateAccount(true)}>
+            <MenuItem onClick={() => setOpenCreateAccount(true)}>
               <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
@@ -200,7 +204,7 @@ export default function MenuComponent({
                 <PersonAddIcon />
               </IconButton>
               <p>Create account</p>
-            </MenuItem> */}
+            </MenuItem>
             <MenuItem onClick={() => setOpenAbout(true)}>
               <IconButton
                 size="large"

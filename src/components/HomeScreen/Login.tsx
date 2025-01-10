@@ -26,12 +26,6 @@ const Login = ({
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  // tee:
-  // form jossa username ja salasana
-  // sen jlk formille toiminnallisuus että se lähettää ne backiin
-  // sen jlk minne backista tullut token tallentuu?
-  // sen jlk ehkä etusivulle ominaisuus että tulostaa vaikka jonkun "jee olet kirjautunut käyttäjänä X!"
-  // sen jlk logout joka nollaa tokenin kuten fullstack osa4 meille opettaapi
   return (
     <Dialog
       onClose={handleClose}
@@ -75,7 +69,7 @@ const Login = ({
             required
           />
           <Button type="submit" variant="contained" color="primary">
-            Sign Up
+            Sign In
           </Button>
         </form>
       </DialogContent>
