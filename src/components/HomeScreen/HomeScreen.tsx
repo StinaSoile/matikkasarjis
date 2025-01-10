@@ -11,8 +11,7 @@ import { apiBaseUrl } from "../../constants";
 const HomeScreen = ({
   isLoggedIn,
   setIsLoggedIn,
-}: // setOpenCreateAccount,
-{
+}: {
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
@@ -24,18 +23,42 @@ const HomeScreen = ({
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  // TODO:
+  // kai nuo statehommat pitäisi kuitenkin siirtää tänne ylemmäs jotta voin tyhjätä ne.
+  // sen jälkeen voin miettiä sitä miten pääsi eroon tästä jatkuvasta propseilusta
+  const handleCreateAccount = async (
+    e: React.FormEvent<HTMLFormElement>,
+    username: string,
+    email: string,
+    password: string,
+    emailError: boolean,
+    passwordError: boolean
+  ) => {
+    e.preventDefault();
+    if (!emailError && !passwordError) {
+      const data = await userService.createUser(username, email, password);
+      console.log(data);
+      login(username, password);
+    }
+  };
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    login(username, password);
+  };
+
+  const login = async (username: string, password: string) => {
     const data = await userService.authenticateUser(username, password);
     console.log(data); // {token, username, progress}
     window.localStorage.setItem("username", data.username);
-    window.localStorage.setItem("progress", data.progress);
+    window.localStorage.setItem("progress", JSON.stringify(data.progress));
     window.localStorage.setItem("token", data.token);
 
     setUsername("");
     setPassword("");
     setIsLoggedIn(true);
     setOpenLogin(false);
+    setOpenCreateAccount(false);
   };
   return (
     <div className="homescreen">
@@ -44,12 +67,14 @@ const HomeScreen = ({
         setOpenLogin={setOpenLogin}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
+        setOpenCreateAccount={setOpenCreateAccount}
       />
 
       <About handleClose={() => setOpenAbout(false)} open={openAbout} />
       <CreateAccount
         handleClose={() => setOpenCreateAccount(false)}
         open={openCreateAccount}
+        handleCreateAccount={handleCreateAccount}
       />
       <Login
         handleClose={() => setOpenLogin(false)}
