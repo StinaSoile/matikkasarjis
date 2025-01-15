@@ -5,49 +5,93 @@ import {
   DialogContent,
   TextField,
   Button,
+  Alert,
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const CreateAccount = ({
   handleClose,
   open,
   handleCreateAccount,
+  newUsername,
+  setNewUsername,
+  email,
+  setEmail,
+  newPassword,
+  setNewPassword,
+  confirmPassword,
+  setConfirmPassword,
+  emailError,
+  setEmailError,
+  confirmError,
+  setConfirmError,
+  passwordError,
+  setPasswordError,
+  nameError,
+  setNameError,
 }: {
   handleClose: () => void;
   open: boolean;
-  handleCreateAccount: (
-    e: React.FormEvent<HTMLFormElement>,
-    username: string,
-    email: string,
-    password: string,
-    emailError: boolean,
-    passwordError: boolean
-  ) => void;
+  handleCreateAccount: (e: React.FormEvent<HTMLFormElement>) => void;
+  newUsername: string;
+  setNewUsername: React.Dispatch<React.SetStateAction<string>>;
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  newPassword: string;
+  setNewPassword: React.Dispatch<React.SetStateAction<string>>;
+  confirmPassword: string;
+  setConfirmPassword: React.Dispatch<React.SetStateAction<string>>;
+  emailError: boolean;
+  setEmailError: React.Dispatch<React.SetStateAction<boolean>>;
+  confirmError: boolean;
+  setConfirmError: React.Dispatch<React.SetStateAction<boolean>>;
+  passwordError: boolean;
+  setPasswordError: React.Dispatch<React.SetStateAction<boolean>>;
+  nameError: boolean;
+  setNameError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  // const [newUsername, setNewUsername] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password1, setPassword1] = useState("");
+  // const [password2, setPassword2] = useState("");
+  // const [emailError, setEmailError] = useState(false);
+  // const [passwordError, setPasswordError] = useState(false);
 
   // TODO:
   // username is already in use, eli reagoi backin erroriin fiksusti
-  // password under 8 characters
 
   useEffect(() => {
-    if (password1.length > 0 && password2.length > 0) {
-      setPasswordError(password1 !== password2);
+    if (newPassword.length > 0 && confirmPassword.length > 0) {
+      setConfirmError(newPassword !== confirmPassword);
     }
-  }, [password1, password2]);
+  }, [newPassword, confirmPassword]);
 
   const validateEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError(true);
     } else setEmailError(false);
+  };
+
+  const validatePassword = () => {
+    if (newPassword.length < 8) {
+      setPasswordError(true);
+    } else setPasswordError(false);
+  };
+
+  const validateName = () => {
+    if (newUsername.length < 1) {
+      setNameError(true);
+    } else setNameError(false);
+  };
+
+  const isErrors = () => {
+    if (nameError || emailError || passwordError || confirmError) {
+      return true;
+    }
+    return false;
   };
   return (
     <Dialog
@@ -73,14 +117,7 @@ const CreateAccount = ({
       <DialogContent dividers>
         <form
           onSubmit={(e) => {
-            handleCreateAccount(
-              e,
-              username,
-              email,
-              password1,
-              emailError,
-              passwordError
-            );
+            handleCreateAccount(e);
           }}
         >
           <TextField
@@ -88,9 +125,14 @@ const CreateAccount = ({
             variant="outlined"
             fullWidth
             name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={newUsername}
+            onChange={(e) => {
+              setNewUsername(e.target.value);
+              if (nameError) validateName();
+            }}
             required
+            onBlur={validateName}
+            error={nameError}
           />
           <TextField
             label="Email"
@@ -112,11 +154,13 @@ const CreateAccount = ({
             fullWidth
             name="password"
             type="password"
-            value={password1}
+            value={newPassword}
             onChange={(e) => {
-              setPassword1(e.target.value);
+              setNewPassword(e.target.value);
+              if (passwordError) validatePassword();
             }}
             required
+            onBlur={validatePassword}
             error={passwordError}
           />
           <TextField
@@ -125,13 +169,31 @@ const CreateAccount = ({
             fullWidth
             name="password"
             type="password"
-            value={password2}
+            value={confirmPassword}
             onChange={(e) => {
-              setPassword2(e.target.value);
+              setConfirmPassword(e.target.value);
             }}
             required
-            error={passwordError}
+            error={confirmError}
           />
+          {isErrors() ? (
+            <Alert variant="outlined" severity="warning">
+              {nameError ? <>Anna käyttäjänimi. </> : <></>}
+              {emailError ? <>Sähköposti on virheellinen. </> : <></>}
+              {passwordError ? (
+                <>Salasanan tulee olla vähintään 8 merkkiä pitkä. </>
+              ) : (
+                <></>
+              )}
+              {confirmError ? (
+                <>Varmistussalasana ja salasana eivät ole samat. </>
+              ) : (
+                <></>
+              )}
+            </Alert>
+          ) : (
+            <></>
+          )}
           <Button type="submit" variant="contained" color="primary">
             Create
           </Button>

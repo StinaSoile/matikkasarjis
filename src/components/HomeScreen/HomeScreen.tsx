@@ -23,22 +23,27 @@ const HomeScreen = ({
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [newUsername, setNewUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [confirmError, setConfirmError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+
   // TODO:
-  // kai nuo statehommat pitäisi kuitenkin siirtää tänne ylemmäs jotta voin tyhjätä ne.
-  // sen jälkeen voin miettiä sitä miten pääsi eroon tästä jatkuvasta propseilusta
-  const handleCreateAccount = async (
-    e: React.FormEvent<HTMLFormElement>,
-    username: string,
-    email: string,
-    password: string,
-    emailError: boolean,
-    passwordError: boolean
-  ) => {
+  // kun haluan, voin miettiä sitä miten pääsi eroon tästä propseilusta
+  const handleCreateAccount = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!emailError && !passwordError) {
-      const data = await userService.createUser(username, email, password);
+    if (!emailError && !confirmError) {
+      const data = await userService.createUser(
+        newUsername,
+        email,
+        newPassword
+      );
       console.log(data);
-      login(username, password);
+      login(newUsername, newPassword);
     }
   };
 
@@ -59,6 +64,10 @@ const HomeScreen = ({
     setIsLoggedIn(true);
     setOpenLogin(false);
     setOpenCreateAccount(false);
+    setNewUsername("");
+    setEmail("");
+    setNewPassword("");
+    setConfirmPassword("");
   };
   return (
     <div className="homescreen">
@@ -75,6 +84,22 @@ const HomeScreen = ({
         handleClose={() => setOpenCreateAccount(false)}
         open={openCreateAccount}
         handleCreateAccount={handleCreateAccount}
+        newUsername={newUsername}
+        setNewUsername={setNewUsername}
+        email={email}
+        setEmail={setEmail}
+        newPassword={newPassword}
+        setNewPassword={setNewPassword}
+        confirmPassword={confirmPassword}
+        setConfirmPassword={setConfirmPassword}
+        emailError={emailError}
+        setEmailError={setEmailError}
+        confirmError={confirmError}
+        setConfirmError={setConfirmError}
+        passwordError={passwordError}
+        setPasswordError={setPasswordError}
+        nameError={nameError}
+        setNameError={setNameError}
       />
       <Login
         handleClose={() => setOpenLogin(false)}
