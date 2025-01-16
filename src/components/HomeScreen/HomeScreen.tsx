@@ -33,18 +33,11 @@ const HomeScreen = ({
   const [nameError, setNameError] = useState(false);
   const [duplicateNameError, setDuplicateNameError] = useState(false);
 
-  // TODO:
-  // kun haluan, voin miettiä sitä miten pääsi eroon tästä propseilusta
   const handleCreateAccount = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!emailError && !confirmError && !nameError && !passwordError) {
       try {
-        const data = await userService.createUser(
-          newUsername,
-          email,
-          newPassword
-        );
-        console.log("DATA:", data);
+        await userService.createUser(newUsername, email, newPassword);
         login(newUsername, newPassword);
       } catch (error) {
         if (error instanceof Error) {
@@ -65,7 +58,6 @@ const HomeScreen = ({
 
   const login = async (username: string, password: string) => {
     const data = await userService.authenticateUser(username, password);
-    console.log(data); // {token, username, progress}
     window.localStorage.setItem("username", data.username);
     window.localStorage.setItem("progress", JSON.stringify(data.progress));
     window.localStorage.setItem("token", data.token);

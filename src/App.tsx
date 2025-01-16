@@ -49,10 +49,6 @@ function App() {
     checkIfLoggedIn();
   }, []);
 
-  useEffect(() => {
-    console.log(isLoggedIn); // Tämä loggaa aina päivitetyn arvon
-  }, [isLoggedIn]);
-
   return (
     <ThemeProvider theme={theme}>
       <Router>
