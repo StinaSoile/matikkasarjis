@@ -1,26 +1,27 @@
 const parseAndValidateProgress = (
-  progressString: string
+  progressString: string | null
 ): { comic: string; key: string }[] => {
-  try {
-    const parsed = JSON.parse(progressString);
+  if (progressString) {
+    try {
+      const parsed = JSON.parse(progressString);
 
-    if (
-      Array.isArray(parsed) &&
-      parsed.every(
-        (item) =>
-          typeof item === "object" &&
-          item !== null &&
-          typeof item.comic === "string" &&
-          typeof item.key === "string"
-      )
-    ) {
-      return parsed as { comic: string; key: string }[];
+      if (
+        Array.isArray(parsed) &&
+        parsed.every(
+          (item) =>
+            typeof item === "object" &&
+            item !== null &&
+            typeof item.comic === "string" &&
+            typeof item.key === "string"
+        )
+      ) {
+        return parsed as { comic: string; key: string }[];
+      }
+    } catch (error) {
+      console.error("Invalid JSON format:", error);
     }
-  } catch (error) {
-    console.error("Invalid JSON format:", error);
   }
-
-  return []; // Palautetaan tyhjä progress, jos validointi epäonnistuu
+  return [];
 };
 
 export default {
