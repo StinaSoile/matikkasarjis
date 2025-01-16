@@ -31,6 +31,8 @@ const CreateAccount = ({
   setPasswordError,
   nameError,
   setNameError,
+  duplicateNameError,
+  setDuplicateNameError,
 }: {
   handleClose: () => void;
   open: boolean;
@@ -51,17 +53,9 @@ const CreateAccount = ({
   setPasswordError: React.Dispatch<React.SetStateAction<boolean>>;
   nameError: boolean;
   setNameError: React.Dispatch<React.SetStateAction<boolean>>;
+  duplicateNameError: boolean;
+  setDuplicateNameError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  // const [newUsername, setNewUsername] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password1, setPassword1] = useState("");
-  // const [password2, setPassword2] = useState("");
-  // const [emailError, setEmailError] = useState(false);
-  // const [passwordError, setPasswordError] = useState(false);
-
-  // TODO:
-  // username is already in use, eli reagoi backin erroriin fiksusti
-
   useEffect(() => {
     if (newPassword.length > 0 && confirmPassword.length > 0) {
       setConfirmError(newPassword !== confirmPassword);
@@ -82,13 +76,20 @@ const CreateAccount = ({
   };
 
   const validateName = () => {
+    setDuplicateNameError(false);
     if (newUsername.length < 1) {
       setNameError(true);
     } else setNameError(false);
   };
 
   const isErrors = () => {
-    if (nameError || emailError || passwordError || confirmError) {
+    if (
+      nameError ||
+      emailError ||
+      passwordError ||
+      confirmError ||
+      duplicateNameError
+    ) {
       return true;
     }
     return false;
@@ -178,6 +179,7 @@ const CreateAccount = ({
           />
           {isErrors() ? (
             <Alert variant="outlined" severity="warning">
+              {duplicateNameError ? <>Nimi on jo käytössä. </> : <></>}
               {nameError ? <>Anna käyttäjänimi. </> : <></>}
               {emailError ? <>Sähköposti on virheellinen. </> : <></>}
               {passwordError ? (
