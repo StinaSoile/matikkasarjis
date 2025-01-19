@@ -33,7 +33,7 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
       document.removeEventListener("keydown", keyDownHandler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, progressKey]);
+  }, [page]);
 
   const getPages = async (comicName: string, key: string | undefined) => {
     try {
@@ -117,10 +117,9 @@ const ComicBook = ({ comicName }: { comicName: string }) => {
     const token = window.localStorage.getItem("token");
     if (token) {
       const data = await userService.saveProgress(comicName, key);
-      window.localStorage.setItem("username", data.username);
       window.localStorage.setItem("progress", JSON.stringify(data.progress));
-      window.localStorage.setItem("token", data.token);
     }
+    getPages(comicName, key);
   };
 
   return (
