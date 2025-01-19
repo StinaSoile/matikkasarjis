@@ -4,7 +4,7 @@ import path from "path";
 
 const app = express();
 // eslint-disable-next-line no-undef
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 // Palvelee staattisia tiedostoja dist-hakemistosta
 app.use(express.static(path.resolve('dist')));

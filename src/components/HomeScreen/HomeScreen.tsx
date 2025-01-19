@@ -35,17 +35,18 @@ const HomeScreen = ({
 
   const handleCreateAccount = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!emailError && !confirmError && !nameError && !passwordError) {
-      try {
-        await userService.createUser(newUsername, email, newPassword);
-        login(newUsername, newPassword);
-      } catch (error) {
-        if (error instanceof Error) {
-          if (error.message === "Request failed with status code 409") {
-            setDuplicateNameError(true);
-          } else {
-            console.error("Unexpected error: ", error.message);
-          }
+    if (emailError || confirmError || nameError || passwordError) {
+      return;
+    }
+    try {
+      await userService.createUser(newUsername, email, newPassword);
+      login(newUsername, newPassword);
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message === "Request failed with status code 409") {
+          setDuplicateNameError(true);
+        } else {
+          console.error("Unexpected error: ", error.message);
         }
       }
     }

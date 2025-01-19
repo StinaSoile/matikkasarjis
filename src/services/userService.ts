@@ -57,13 +57,13 @@ const createUser = async (
   email: string,
   password: string
 ) => {
-  const response = await axios.post(`${apiBaseUrl}/users`, {
+  await axios.post(`${apiBaseUrl}/users`, {
     username: username,
     email: email,
     password: password,
     progress: [],
   });
-  return response.data;
+  return;
 };
 
 export default {
