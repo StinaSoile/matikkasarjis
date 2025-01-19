@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
-import { useEffect } from "react";
+import { useEffect, Dispatch, SetStateAction } from "react";
 
 const CreateAccount = ({
   handleClose,
@@ -38,23 +38,23 @@ const CreateAccount = ({
   open: boolean;
   handleCreateAccount: (e: React.FormEvent<HTMLFormElement>) => void;
   newUsername: string;
-  setNewUsername: React.Dispatch<React.SetStateAction<string>>;
+  setNewUsername: Dispatch<SetStateAction<string>>;
   email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setEmail: Dispatch<SetStateAction<string>>;
   newPassword: string;
-  setNewPassword: React.Dispatch<React.SetStateAction<string>>;
+  setNewPassword: Dispatch<SetStateAction<string>>;
   confirmPassword: string;
-  setConfirmPassword: React.Dispatch<React.SetStateAction<string>>;
+  setConfirmPassword: Dispatch<SetStateAction<string>>;
   emailError: boolean;
-  setEmailError: React.Dispatch<React.SetStateAction<boolean>>;
+  setEmailError: Dispatch<SetStateAction<boolean>>;
   confirmError: boolean;
-  setConfirmError: React.Dispatch<React.SetStateAction<boolean>>;
+  setConfirmError: Dispatch<SetStateAction<boolean>>;
   passwordError: boolean;
-  setPasswordError: React.Dispatch<React.SetStateAction<boolean>>;
+  setPasswordError: Dispatch<SetStateAction<boolean>>;
   nameError: boolean;
-  setNameError: React.Dispatch<React.SetStateAction<boolean>>;
+  setNameError: Dispatch<SetStateAction<boolean>>;
   duplicateNameError: boolean;
-  setDuplicateNameError: React.Dispatch<React.SetStateAction<boolean>>;
+  setDuplicateNameError: Dispatch<SetStateAction<boolean>>;
 }) => {
   useEffect(() => {
     if (newPassword.length > 0 && confirmPassword.length > 0) {
@@ -77,22 +77,18 @@ const CreateAccount = ({
 
   const validateName = () => {
     setDuplicateNameError(false);
-    if (newUsername.length < 1) {
-      setNameError(true);
-    } else setNameError(false);
+    if (newUsername.length < 1) setNameError(true);
+    else setNameError(false);
   };
 
   const isErrors = () => {
-    if (
+    return (
       nameError ||
       emailError ||
       passwordError ||
       confirmError ||
       duplicateNameError
-    ) {
-      return true;
-    }
-    return false;
+    );
   };
   return (
     <Dialog
@@ -179,18 +175,14 @@ const CreateAccount = ({
           />
           {isErrors() ? (
             <Alert variant="outlined" severity="warning">
-              {duplicateNameError ? <>Nimi on jo käytössä. </> : <></>}
-              {nameError ? <>Anna käyttäjänimi. </> : <></>}
-              {emailError ? <>Sähköposti on virheellinen. </> : <></>}
-              {passwordError ? (
+              {duplicateNameError && <>Nimi on jo käytössä. </>}
+              {nameError && <>Anna käyttäjänimi. </>}
+              {emailError && <>Sähköposti on virheellinen. </>}
+              {passwordError && (
                 <>Salasanan tulee olla vähintään 8 merkkiä pitkä. </>
-              ) : (
-                <></>
               )}
-              {confirmError ? (
+              {confirmError && (
                 <>Varmistussalasana ja salasana eivät ole samat. </>
-              ) : (
-                <></>
               )}
             </Alert>
           ) : (
