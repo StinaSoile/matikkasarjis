@@ -1,9 +1,9 @@
-import About from "./About";
-import CreateAccount from "./CreateAccount";
-import Login from "./Login";
+import About from "./About/About";
+import CreateAccount from "./CreateAccount/CreateAccount";
+import Login from "./Login/Login";
 import { useState } from "react";
-import MenuComponent from "./MenuComponent";
-import ComicGallery from "./ComicGallery";
+import Navbar from "./Navbar/Navbar";
+import ComicGallery from "./ComicGallery/ComicGallery";
 import userService from "../../services/userService";
 
 import { apiBaseUrl } from "../../constants";
@@ -75,7 +75,7 @@ const HomeScreen = ({
   };
   return (
     <div className="homescreen">
-      <MenuComponent
+      <Navbar
         setOpenAbout={setOpenAbout}
         setOpenLogin={setOpenLogin}
         isLoggedIn={isLoggedIn}

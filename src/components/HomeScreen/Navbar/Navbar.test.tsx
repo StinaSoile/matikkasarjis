@@ -1,10 +1,9 @@
-// import { render, screen } from "@testing-library/react";
-// import "@testing-library/jest-dom";
-// import MenuComponent from "./MenuComponent";
-// import { describe, test, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import Navbar from "./Navbar";
+import { describe, test, expect } from "vitest";
 
 // TODO: fix file
-// describe("<MenuComponent />", () => {
+// describe("<Navbar />", () => {
 //   test("should render About author -button and show more -button", () => {
 //     // different screen sizes render different buttons,
 //     // but test does not recognize this
@@ -18,7 +17,7 @@
 //     // setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 //     // setOpenCreateAccount: React.Dispatch<React.SetStateAction<boolean>>;
 
-//     render(<MenuComponent setOpenAbout={setOpenAbout} />);
+//     render(<Navbar setOpenAbout={setOpenAbout} />);
 
 //     const element = screen.getByRole("button", {
 //       name: "about-author-big",

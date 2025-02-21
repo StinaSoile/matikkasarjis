@@ -1,0 +1,19 @@
+.list-element-for-comicgallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  width: 40%;
+  max-width: 200px;
+  min-width: 140px;
+}
+
+.div-in-comicgallery {
+  color: white;
+  text-align: center;
+}
+
+.center {
+  justify-content: center;
+}

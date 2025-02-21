@@ -1,10 +1,10 @@
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
-import "./ComicPage.css";
+import "./ComicPageView.css";
 import { Dialog, Stack } from "@mui/material";
-import { Page } from "../../types";
-import { apiBaseUrl } from "../../constants";
-import MathQuestions from "./MathQuestions";
+import { Page } from "../../../types";
+import { apiBaseUrl } from "../../../constants";
+import MathQuestions from "../MathQuestions/MathQuestions";
 
 const ComicPageView = ({
   comicName,
@@ -70,8 +70,8 @@ const ComicPageView = ({
           />
         </div>
         <div className="centered">
-          <div>
-            <Stack direction="column">
+          <div className="comic-container">
+            <Stack direction="column" spacing={2}>
               {renderComicPage(comic, page)}
 
               <Stack
@@ -100,13 +100,15 @@ const ComicPageView = ({
                   />
                 )}
               </Stack>
-              <MathQuestions
-                progressKey={progressKey}
-                changeKey={changeKey}
-                comicName={comicName}
-                pageNumber={page}
-                comicPage={comic[page]}
-              />
+              <div className="questions-container">
+                <MathQuestions
+                  progressKey={progressKey}
+                  changeKey={changeKey}
+                  comicName={comicName}
+                  pageNumber={page}
+                  comicPage={comic[page]}
+                />
+              </div>
             </Stack>
           </div>
         </div>
