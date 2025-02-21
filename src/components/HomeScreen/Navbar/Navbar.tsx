@@ -72,9 +72,9 @@ export default function Navbar({
       onClose={handleMobileMenuClose}
       PaperProps={{
         sx: {
-          bgcolor: 'background.paper',
-          color: 'text.primary'
-        }
+          bgcolor: "background.paper",
+          color: "text.primary",
+        },
       }}
     >
       {isLoggedIn ? (
@@ -85,23 +85,27 @@ export default function Navbar({
           <p>Kirjaudu ulos</p>
         </MenuItem>
       ) : (
-        <>
-          <MenuItem onClick={handleOpenLogin}>
+        [
+          <MenuItem key="menuitem01" onClick={handleOpenLogin}>
             <IconButton size="large" aria-label="login-small" color="success">
               <LoginIcon />
             </IconButton>
             <p>Kirjaudu</p>
-          </MenuItem>
-          <MenuItem onClick={() => setOpenCreateAccount(true)}>
+          </MenuItem>,
+          <MenuItem key="menuitem02" onClick={() => setOpenCreateAccount(true)}>
             <IconButton size="large" aria-label="create-account" color="info">
               <PersonAddIcon />
             </IconButton>
             <p>Luo tunnus</p>
-          </MenuItem>
-        </>
+          </MenuItem>,
+        ]
       )}
       <MenuItem onClick={handleOpenAbout}>
-        <IconButton size="large" aria-label="about-author-small" color="secondary">
+        <IconButton
+          size="large"
+          aria-label="about-author-small"
+          color="secondary"
+        >
           <Face4Icon />
         </IconButton>
         <p>About author</p>
@@ -111,23 +115,29 @@ export default function Navbar({
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar 
-        position="fixed" 
-        sx={{ 
-          bgcolor: 'grey.900',
-          color: 'common.white'
+      <AppBar
+        position="fixed"
+        sx={{
+          bgcolor: "grey.900",
+          color: "common.white",
         }}
       >
         <Toolbar>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ 
-            display: { xs: "none", md: "flex" },
-            '& .MuiMenuItem-root': {
-              color: 'common.white'
-            }
-          }}>
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              "& .MuiMenuItem-root": {
+                color: "common.white",
+              },
+            }}
+          >
             <MenuItem onClick={() => setOpenAbout(true)}>
-              <IconButton size="large" aria-label="about-author-big" color="secondary">
+              <IconButton
+                size="large"
+                aria-label="about-author-big"
+                color="secondary"
+              >
                 <Face4Icon />
               </IconButton>
               <p>Tekijästä</p>
@@ -141,20 +151,31 @@ export default function Navbar({
                 <p>Kirjaudu ulos</p>
               </MenuItem>
             ) : (
-              <>
-                <MenuItem onClick={() => setOpenCreateAccount(true)}>
-                  <IconButton size="large" aria-label="create-account" color="info">
+              [
+                <MenuItem
+                  key="menuitem1"
+                  onClick={() => setOpenCreateAccount(true)}
+                >
+                  <IconButton
+                    size="large"
+                    aria-label="create-account"
+                    color="info"
+                  >
                     <PersonAddIcon />
                   </IconButton>
                   <p>Luo tunnus</p>
-                </MenuItem>
-                <MenuItem onClick={() => setOpenLogin(true)}>
-                  <IconButton size="large" aria-label="login-big" color="success">
+                </MenuItem>,
+                <MenuItem key="menuitem2" onClick={() => setOpenLogin(true)}>
+                  <IconButton
+                    size="large"
+                    aria-label="login-big"
+                    color="success"
+                  >
                     <LoginIcon />
                   </IconButton>
                   <p>Kirjaudu</p>
-                </MenuItem>
-              </>
+                </MenuItem>,
+              ]
             )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -164,7 +185,7 @@ export default function Navbar({
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              sx={{ color: 'common.white' }}
+              sx={{ color: "common.white" }}
             >
               <MoreIcon />
             </IconButton>
