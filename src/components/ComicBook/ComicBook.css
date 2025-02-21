@@ -1,0 +1,44 @@
+.list-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.comic-page-in-list {
+  width: 90%;
+  margin: 2px;
+  background-color: #5f5f5f;
+  min-height: 150px;
+}
+
+.shadow {
+  box-shadow: 1rem 1rem 2rem black;
+}
+
+.comic-page-in-list:hover {
+  box-shadow: 0 0 1rem grey;
+}
+
+.list-element-for-pages {
+  width: 120px;
+  padding-top: 3px;
+  text-align: center;
+  cursor: pointer;
+  filter: brightness(50%);
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.focused {
+  filter: brightness(100%);
+}
+
+@media (max-width: 390px) {
+  .comic-page-in-list {
+    min-height: 125px;
+  }
+
+  .list-element-for-pages {
+    width: 100px;
+  }
+}
