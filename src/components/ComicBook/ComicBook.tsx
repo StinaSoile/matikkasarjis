@@ -1,3 +1,4 @@
+import "./ComicBook.css";
 import "./ComicPage.css";
 
 import { Link } from "react-router-dom";

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { SyntheticEvent } from "react";
 import comicService from "../../services/comicService";
 import axios from "axios";
+import './MathQuestions.css';
+
 const MathQuestions = ({
   progressKey,
   changeKey,
@@ -98,36 +100,33 @@ const MathQuestions = ({
   if (!comicPage.questionList) return;
   return (
     <form className="questionform" onSubmit={(e) => handleAnswer(e)}>
-      <div className="all-questions-container">
-        {questions.map((q, i) => {
-          return (
-            <div className="question-container" key={i}>
-              <div role="question" style={{ fontSize: "1.5rem" }}>
-                {q.question}
-              </div>
-              <div>
-                <label>
-                  <input
-                    className="answer-input"
-                    autoComplete="off"
-                    value={answers[i]}
-                    type="text"
-                    name="name"
-                    onChange={(target) => changeValues(target, i)}
-                  />
-                  {i === questions.length - 1 ? (
-                    <button className={buttonClasses} type="submit">
-                      {" "}
-                      &gt;{" "}
-                    </button>
-                  ) : (
-                    <span></span>
-                  )}
-                </label>
-              </div>
-            </div>
-          );
-        })}
+      <table className="questions-table">
+        <tbody>
+          {questions.map((q, i) => (
+            <tr key={i} className="question-row">
+              <td className="question-cell">
+                <div role="question" style={{ fontSize: "1.5rem" }}>
+                  {q.question}
+                </div>
+              </td>
+              <td className="answer-cell">
+                <input
+                  className="answer-input"
+                  autoComplete="off"
+                  value={answers[i]}
+                  type="text"
+                  name="name"
+                  onChange={(target) => changeValues(target, i)}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="button-container">
+        <button className={buttonClasses} type="submit">
+          Vastaa
+        </button>
       </div>
     </form>
   );
