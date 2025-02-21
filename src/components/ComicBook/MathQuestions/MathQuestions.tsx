@@ -1,7 +1,7 @@
-import { Page, Question } from "../../types";
+import { Page, Question } from "../../../types";
 import { useEffect, useState } from "react";
 import { SyntheticEvent } from "react";
-import comicService from "../../services/comicService";
+import comicService from "../../../services/comicService";
 import axios from "axios";
 import './MathQuestions.css';
 

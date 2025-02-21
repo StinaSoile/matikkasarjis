@@ -4,14 +4,14 @@ import "../ComicPageView/ComicPage.css";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useEffect, useRef, useState } from "react";
-import ComicPageView from "./ComicPageView/ComicPageView";
+import ComicPageView from "../ComicPageView/ComicPageView";
 import { IconButton } from "@mui/material";
-import comicService from "../../services/comicService";
-import userService from "../../services/userService";
-import { Page } from "../../types";
-import { apiBaseUrl } from "../../constants";
+import comicService from "../../../services/comicService";
+import userService from "../../../services/userService";
+import { Page } from "../../../types";
+import { apiBaseUrl } from "../../../constants";
 import axios from "axios";
-import utils from "../../utils";
+import utils from "../../../utils";
 
 const ComicBook = ({ comicName }: { comicName: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
