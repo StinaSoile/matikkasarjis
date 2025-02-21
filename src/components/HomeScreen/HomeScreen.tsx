@@ -2,7 +2,7 @@ import About from "./About/About";
 import CreateAccount from "./CreateAccount/CreateAccount";
 import Login from "./Login/Login";
 import { useState } from "react";
-import MenuComponent from "./MenuComponent/MenuComponent";
+import Navbar from "./Navbar/Navbar";
 import ComicGallery from "./ComicGallery/ComicGallery";
 import userService from "../../services/userService";
 
@@ -75,7 +75,7 @@ const HomeScreen = ({
   };
   return (
     <div className="homescreen">
-      <MenuComponent
+      <Navbar
         setOpenAbout={setOpenAbout}
         setOpenLogin={setOpenLogin}
         isLoggedIn={isLoggedIn}
