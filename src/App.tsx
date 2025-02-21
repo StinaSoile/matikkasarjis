@@ -3,7 +3,7 @@ import HomeScreen from "./components/HomeScreen/HomeScreen";
 import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
-import ComicBook from "./components/ComicBook/ComicBook";
+import ComicBook from "./components/ComicBook/ComicBook/ComicBook";
 import { useEffect, useState } from "react";
 import comicService from "./services/comicService";
 import axios from "axios";

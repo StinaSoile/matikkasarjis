@@ -2,9 +2,9 @@ import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./ComicPageView.css";
 import { Dialog, Stack } from "@mui/material";
-import { Page } from "../../types";
-import { apiBaseUrl } from "../../constants";
-import MathQuestions from "./MathQuestions";
+import { Page } from "../../../types";
+import { apiBaseUrl } from "../../../constants";
+import MathQuestions from "../MathQuestions/MathQuestions";
 
 const ComicPageView = ({
   comicName,

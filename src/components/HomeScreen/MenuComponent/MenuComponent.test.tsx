@@ -1,7 +1,6 @@
-// import { render, screen } from "@testing-library/react";
-// import "@testing-library/jest-dom";
-// import MenuComponent from "./MenuComponent";
-// import { describe, test, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import MenuComponent from "./MenuComponent";
+import { describe, test, expect } from "vitest";
 
 // TODO: fix file
 // describe("<MenuComponent />", () => {
