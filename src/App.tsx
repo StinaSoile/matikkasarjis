@@ -12,8 +12,58 @@ const theme = createTheme({
   palette: {
     primary: grey,
     secondary: blueGrey,
+    background: {
+      paper: grey[900],
+    },
+    text: {
+      primary: '#fff',
+      secondary: grey[300]
+    }
   },
-  typography: {},
+  components: {
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: grey[900],
+          color: '#fff'
+        }
+      }
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          color: '#fff'
+        }
+      }
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          color: '#fff'
+        }
+      }
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: grey[700],
+            },
+            '&:hover fieldset': {
+              borderColor: grey[500],
+            },
+            '& input': {
+              color: '#fff'
+            }
+          },
+          '& .MuiInputLabel-root': {
+            color: grey[300]
+          }
+        }
+      }
+    }
+  }
 });
 
 function App() {
