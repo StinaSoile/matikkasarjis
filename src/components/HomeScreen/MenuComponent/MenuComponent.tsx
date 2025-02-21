@@ -120,14 +120,14 @@ export default function MenuComponent({
           <IconButton size="large" aria-label="logout-small" color="inherit">
             <LoginIcon />
           </IconButton>
-          <p>Sign out</p>
+          <p>Kirjaudu ulos</p>
         </MenuItem>
       ) : (
         <MenuItem onClick={handleOpenLogin}>
           <IconButton size="large" aria-label="login-small" color="inherit">
             <LoginIcon />
           </IconButton>
-          <p>Sign in</p>
+          <p>Kirjaudu</p>
         </MenuItem>
       )}
       <MenuItem onClick={() => setOpenCreateAccount(true)}>
@@ -138,7 +138,7 @@ export default function MenuComponent({
         >
           <PersonAddIcon />
         </IconButton>
-        <p>Create account</p>
+        <p>Luo tunnus</p>
       </MenuItem>
       <MenuItem onClick={handleOpenAbout}>
         <IconButton
@@ -185,14 +185,14 @@ export default function MenuComponent({
                 >
                   <LoginIcon />
                 </IconButton>
-                <p>Sign out</p>
+                <p>Kirjaudu ulos</p>
               </MenuItem>
             ) : (
               <MenuItem onClick={() => setOpenLogin(true)}>
                 <IconButton size="large" aria-label="login-big" color="inherit">
                   <LoginIcon />
                 </IconButton>
-                <p>Sign in</p>
+                <p>Kirjaudu</p>
               </MenuItem>
             )}
             <MenuItem onClick={() => setOpenCreateAccount(true)}>
@@ -203,7 +203,7 @@ export default function MenuComponent({
               >
                 <PersonAddIcon />
               </IconButton>
-              <p>Create account</p>
+              <p>Luo tunnus</p>
             </MenuItem>
             <MenuItem onClick={() => setOpenAbout(true)}>
               <IconButton
@@ -213,7 +213,7 @@ export default function MenuComponent({
               >
                 <Face4Icon />
               </IconButton>
-              <p>About author</p>
+              <p>Tekijästä</p>
             </MenuItem>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
