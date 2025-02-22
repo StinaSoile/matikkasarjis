@@ -1,10 +1,10 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import MathQuestions from "./MathQuestions";
-import comicService from "../../../services/comicService";
+import comicService from "../../services/comicService";
 import { describe, test, expect, vi } from "vitest";
 
 // Mockataan comicService
-vi.mock("../../../services/comicService");
+vi.mock("../../services/comicService");
 
 const mockPostAnswers = comicService.postAnswers as ReturnType<typeof vi.fn>;
 
