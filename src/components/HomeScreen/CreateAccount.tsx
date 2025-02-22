@@ -97,7 +97,7 @@ const CreateAccount = ({
       open={open}
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        Luo tunnus
+        Create account
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -189,7 +189,7 @@ const CreateAccount = ({
             <></>
           )}
           <Button type="submit" variant="contained" color="primary">
-            Luo
+            Create
           </Button>
         </form>
       </DialogContent>

@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { apiBaseUrl } from "../../../constants";
-import comicService from "../../../services/comicService";
-import "./ComicGallery.css";
+import { apiBaseUrl } from "../../constants";
+import comicService from "../../services/comicService";
+
+import "../ComicBook/ComicPage.css";
 import axios from "axios";
 
 const ComicGallery = () => {
