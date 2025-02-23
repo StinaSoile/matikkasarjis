@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
-import Navbar from "./Navbar";
-import { describe, test, expect } from "vitest";
+// import { render, screen } from "@testing-library/react";
+// import Navbar from "./Navbar";
+// import { describe, test, expect } from "vitest";
 
 // TODO: fix file
 // describe("<Navbar />", () => {
